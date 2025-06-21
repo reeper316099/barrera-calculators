@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solid Mechanics | Barrera Calculators</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    :root {
+      --primary: #4a6fa5;
+      --secondary: #166088;
+      --accent: #db3a34;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--dark);
+      background-color: #f0f4f8;
+      margin: 0;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      transform: rotate(30deg);
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    nav {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 1rem;
+      margin: 0;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      transition: var(--transition);
+      font-size: 0.95rem;
+    }
+    
+    nav a:hover, nav a.active {
+      color: white;
+      background: var(--primary);
+      box-shadow: 0 4px 8px rgba(74, 111, 165, 0.3);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .hero {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 5rem 1rem;
+      text-align: center;
+      border-radius: var(--border-radius);
+      margin-bottom: 3rem;
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40px;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f0f4f8" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f0f4f8" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f0f4f8"/></svg>');
+      background-size: cover;
+    }
+    
+    .hero h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      font-weight: 700;
+    }
+    
+    .hero p {
+      font-size: 1.3rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      font-weight: 300;
+    }
+    
+    .breadcrumb {
+      padding: 1.2rem 0;
+      font-size: 0.95rem;
+      color: #666;
+    }
+    
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+    
+    .breadcrumb a:hover {
+      color: var(--secondary);
+      text-decoration: underline;
+    }
+    
+    .category-description {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      text-align: center;
+      padding: 1.5rem;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+    
+    .category-description p {
+      margin: 0;
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    .calculator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .calculator-card {
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      border: none;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .calculator-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+    
+    .card-image {
+      height: 180px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 4rem;
+      font-weight: 700;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-image::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.2) 0%, transparent 50%);
+    }
+    
+    .card-content {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-content h3 {
+      margin: 0 0 1rem;
+      color: var(--dark);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .card-content p {
+      color: #666;
+      margin-bottom: 1.8rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.8rem;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      transition: var(--transition);
+      font-weight: 600;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 10px rgba(219, 58, 52, 0.3);
+      align-self: flex-start;
+    }
+    
+    .btn:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(22, 96, 136, 0.4);
+    }
+    
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 2.5rem 1rem;
+      margin-top: 4rem;
+    }
+    
+    footer p {
+      margin: 0.5rem 0;
+    }
+    
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: var(--transition);
+      font-weight: 500;
+    }
+    
+    footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      
+      .hero h2 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      nav ul {
+        gap: 0.5rem;
+      }
+      
+      .calculator-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+      <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+      <li><a href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt; 
+      <a href="../index.html">Science of Architecture & Engineering</a> &gt; 
+      Solid Mechanics
+    </div>
+    
+    <section class="hero">
+      <h2>Solid Mechanics Calculators</h2>
+      <p>Tools for analyzing stress, strain, and material behavior</p>
+    </section>
+    
+    <div class="category-description">
+      <p>This collection of calculators helps solve fundamental solid mechanics problems encountered in structural engineering and material science. Select a calculator below to begin your analysis.</p>
+    </div>
+    
+    <div class="calculator-grid">
+      <!-- Stress Calculator -->
+      <div class="calculator-card">
+        <div class="card-image">σ</div>
+        <div class="card-content">
+          <h3>Stress Calculator</h3>
+          <p>Calculate normal and shear stress in structural members under various loading conditions.</p>
+          <a href="stress.html" class="btn">Open Calculator</a>
+        </div>
+      </div>
+      
+      <!-- Strain Calculator -->
+      <div class="calculator-card">
+        <div class="card-image">ε</div>
+        <div class="card-content">
+          <h3>Strain Calculator</h3>
+          <p>Determine axial, shear, and volumetric strain for different materials and loading scenarios.</p>
+          <a href="strain.html" class="btn">Open Calculator</a>
+        </div>
+      </div>
+      
+      <!-- Coming Soon -->
+      <div class="calculator-card">
+        <div class="card-image">📈</div>
+        <div class="card-content">
+          <h3>More Coming Soon</h3>
+          <p>Additional solid mechanics tools including beam bending, torsion, and buckling analysis.</p>
+          <span class="btn" style="background: #ccc; cursor: not-allowed; box-shadow: none;">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>

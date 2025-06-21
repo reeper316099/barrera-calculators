@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Mesh Current Calculator | Circuit Analysis</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .instructions {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 15px;
+      margin: 15px;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent);
+    }
+
+    .calculator {
+      padding: 25px;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+    }
+
+    .input-section h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .input-field input, .input-field select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus, .input-field select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+
+    .results {
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .results h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+    }
+
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .steps {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+    }
+
+    .steps h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--accent);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .step-content {
+      margin-left: 5px;
+    }
+
+    .equation {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .conversion-equation {
+      font-family: serif;
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: var(--border-radius);
+    }
+
+    .error {
+      color: var(--error);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    .circuit-diagram {
+      text-align: center;
+      margin: 20px 0;
+      font-family: monospace;
+      white-space: pre;
+      line-height: 1.2;
+    }
+
+    .matrix {
+      font-family: serif;
+      background: rgba(0, 0, 0, 0.03);
+      padding: 10px;
+      border-radius: var(--border-radius);
+      margin: 10px 0;
+      overflow-x: auto;
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a href="../../misc./index.html">Misc.</a></li>
+  </ul>
+</nav>
+
+<div class="containerb">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../index.html">Science of Innovation & Design</a> &gt; 
+    <a href="index.html">Mechatronics</a> &gt;
+    Mesh Current Calculator
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Mesh Current Calculator</h1>
+      <p class="subtitle">Analyze circuits using the mesh current method</p>
+    </header>
+
+    <div class="instructions">
+      <p>Enter your circuit parameters to calculate mesh currents using the mesh analysis method.</p>
+      <p>Follow the steps to identify meshes, assign currents, and apply KVL.</p>
+    </div>
+
+    <div class="calculator">
+      <div class="input-section">
+        <h3>Circuit Configuration</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="circuit-type">Circuit Type</label>
+            <select id="circuit-type" onchange="updateCircuitType()">
+              <option value="basic">Basic Resistive Circuit</option>
+              <option value="current-source">Circuit with Current Source</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-section" id="circuit-diagram-section">
+        <h3>Circuit Diagram</h3>
+        <div class="circuit-diagram" id="circuit-diagram">
+          R1
+          │
+        mesh1───┐
+          │     │
+          Vs    R2
+          │     │
+        mesh2───┘
+          │
+          R3
+          │
+          R4
+          │
+         GND
+        </div>
+      </div>
+
+      <div class="input-section" id="dynamic-inputs">
+        <h3>Circuit Parameters</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="vs">Voltage Source Vs (V)</label>
+            <input type="number" id="vs" step="any" placeholder="Enter voltage" value="12">
+          </div>
+          <div class="input-field">
+            <label for="r1">Resistor R1 (Ω)</label>
+            <input type="number" id="r1" step="any" placeholder="Enter resistance" value="1000">
+          </div>
+          <div class="input-field">
+            <label for="r2">Resistor R2 (Ω)</label>
+            <input type="number" id="r2" step="any" placeholder="Enter resistance" value="2000">
+          </div>
+          <div class="input-field">
+            <label for="r3">Resistor R3 (Ω)</label>
+            <input type="number" id="r3" step="any" placeholder="Enter resistance" value="3000">
+          </div>
+          <div class="input-field">
+            <label for="r4">Resistor R4 (Ω)</label>
+            <input type="number" id="r4" step="any" placeholder="Enter resistance" value="4000">
+          </div>
+          <div class="input-field" id="current-source-field" style="display: none;">
+            <label for="is">Current Source Is (A)</label>
+            <input type="number" id="is" step="any" placeholder="Enter current" value="0.01">
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="calculateMeshCurrents()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+          Calculate
+        </button>
+        <button class="btn-secondary" onclick="resetCalculator()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="results" id="results"></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize calculator
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add Enter key functionality to all inputs
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            calculateMeshCurrents();
+          }
+        });
+      });
+    });
+
+    function updateCircuitType() {
+      const circuitType = document.getElementById("circuit-type").value;
+      const diagramSection = document.getElementById("circuit-diagram");
+      const currentSourceField = document.getElementById("current-source-field");
+      
+      if (circuitType === "current-source") {
+        diagramSection.innerHTML = `
+          R1
+          │
+        mesh1───┐
+          │     │
+          Vs    R2
+          │     │
+        mesh2───┘
+          │
+          Is
+          │
+          R3
+          │
+         GND
+        `;
+        currentSourceField.style.display = "block";
+      } else {
+        diagramSection.innerHTML = `
+          R1
+          │
+        mesh1───┐
+          │     │
+          Vs    R2
+          │     │
+        mesh2───┘
+          │
+          R3
+          │
+          R4
+          │
+         GND
+        `;
+        currentSourceField.style.display = "none";
+      }
+    }
+
+    function calculateMeshCurrents() {
+      const circuitType = document.getElementById("circuit-type").value;
+      const vs = parseFloat(document.getElementById("vs").value);
+      const r1 = parseFloat(document.getElementById("r1").value);
+      const r2 = parseFloat(document.getElementById("r2").value);
+      const r3 = parseFloat(document.getElementById("r3").value);
+      const r4 = parseFloat(document.getElementById("r4").value);
+      let is = 0;
+      
+      if (circuitType === "current-source") {
+        is = parseFloat(document.getElementById("is").value);
+      }
+      
+      // Validate inputs
+      if (isNaN(vs) || isNaN(r1) || isNaN(r2) || isNaN(r3) || isNaN(r4)) {
+        showError("Please enter valid numbers for all parameters");
+        return;
+      }
+      
+      if (circuitType === "current-source" && isNaN(is)) {
+        showError("Please enter a valid current for the current source");
+        return;
+      }
+      
+      if (r1 <= 0 || r2 <= 0 || r3 <= 0 || r4 <= 0) {
+        showError("Resistor values must be positive");
+        return;
+      }
+      
+      try {
+        let result, steps;
+        
+        switch(circuitType) {
+          case "basic":
+            ({result, steps} = solveBasicMeshCircuit(vs, r1, r2, r3, r4));
+            break;
+          case "current-source":
+            ({result, steps} = solveCurrentSourceMeshCircuit(vs, r1, r2, r3, is));
+            break;
+        }
+        
+        displayResults(result, steps);
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    function solveBasicMeshCircuit(vs, r1, r2, r3, r4) {
+      // Create the coefficient matrix and voltage vector
+      const A = [
+        [r1 + r2, -r2],
+        [-r2, r2 + r3 + r4]
+      ];
+      const V = [vs, 0];
+      
+      // Solve the system of equations
+      const denominator = A[0][0] * A[1][1] - A[0][1] * A[1][0];
+      const i1 = (V[0] * A[1][1] - V[1] * A[0][1]) / denominator;
+      const i2 = (A[0][0] * V[1] - A[1][0] * V[0]) / denominator;
+      
+      // Calculate branch currents
+      const iR1 = i1;
+      const iR2 = i1 - i2;
+      const iR3 = i2;
+      const iR4 = i2;
+      
+      const steps = `
+        <h3>Mesh Current Method Steps</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>Basic Resistive Circuit Analysis:</strong>
+            <div class="equation">Given circuit with Vs = ${vs}V, R1 = ${r1}Ω, R2 = ${r2}Ω, R3 = ${r3}Ω, R4 = ${r4}Ω</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Mesh Identification:</strong>
+            <div class="equation">Identified 2 meshes with currents I1 (clockwise) and I2 (clockwise)</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Apply KVL to Mesh 1:</strong>
+            <div class="equation">I1(R1 + R2) - I2R2 = Vs</div>
+            <div class="equation">I1(${r1} + ${r2}) - I2(${r2}) = ${vs}</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <strong>Apply KVL to Mesh 2:</strong>
+            <div class="equation">-I1R2 + I2(R2 + R3 + R4) = 0</div>
+            <div class="equation">-I1(${r2}) + I2(${r2} + ${r3} + ${r4}) = 0</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <strong>Matrix Formulation:</strong>
+            <div class="matrix">
+              [ ${r1 + r2}  -${r2}    ] [I1]   [${vs}]
+              <br>
+              [ -${r2}   ${r2 + r3 + r4} ] [I2] = [0]
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <strong>Solution:</strong>
+            <div class="equation">I1 = ${i1.toExponential(4)} A</div>
+            <div class="equation">I2 = ${i2.toExponential(4)} A</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">7</div>
+          <div class="step-content">
+            <strong>Branch Currents:</strong>
+            <div class="equation">Current through R1 = I1 = ${iR1.toExponential(4)} A</div>
+            <div class="equation">Current through R2 = I1 - I2 = ${iR2.toExponential(4)} A</div>
+            <div class="equation">Current through R3 = I2 = ${iR3.toExponential(4)} A</div>
+            <div class="equation">Current through R4 = I2 = ${iR4.toExponential(4)} A</div>
+          </div>
+        </div>
+      `;
+      
+      return {
+        result: {
+          i1: i1,
+          i2: i2,
+          iR1: iR1,
+          iR2: iR2,
+          iR3: iR3,
+          iR4: iR4
+        },
+        steps: steps
+      };
+    }
+
+    function solveCurrentSourceMeshCircuit(vs, r1, r2, r3, is) {
+      // For current source circuit, we know I2 = Is (from page 14 of lecture notes)
+      const i2 = is;
+      
+      // Solve for I1 using the first mesh equation
+      const i1 = (vs + is * r2) / (r1 + r2);
+      
+      // Calculate branch currents
+      const iR1 = i1;
+      const iR2 = i1 - i2;
+      const iR3 = i2;
+      
+      const steps = `
+        <h3>Mesh Current Method with Current Source</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>Circuit with Current Source:</strong>
+            <div class="equation">Given circuit with Vs = ${vs}V, R1 = ${r1}Ω, R2 = ${r2}Ω, R3 = ${r3}Ω, Is = ${is}A</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Mesh Identification:</strong>
+            <div class="equation">Identified 2 meshes with currents I1 (clockwise) and I2 (same direction as Is)</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Current Source Constraint:</strong>
+            <div class="equation">I2 = Is = ${is} A</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <strong>Apply KVL to Mesh 1:</strong>
+            <div class="equation">I1(R1 + R2) - I2R2 = Vs</div>
+            <div class="equation">I1(${r1} + ${r2}) - ${is} × ${r2} = ${vs}</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <strong>Solve for I1:</strong>
+            <div class="equation">I1 = (Vs + IsR2) / (R1 + R2)</div>
+            <div class="equation">I1 = (${vs} + ${is} × ${r2}) / (${r1} + ${r2}) = ${i1.toExponential(4)} A</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <div class="step-content">
+            <strong>Branch Currents:</strong>
+            <div class="equation">Current through R1 = I1 = ${iR1.toExponential(4)} A</div>
+            <div class="equation">Current through R2 = I1 - I2 = ${iR2.toExponential(4)} A</div>
+            <div class="equation">Current through R3 = I2 = ${is} A</div>
+          </div>
+        </div>
+      `;
+      
+      return {
+        result: {
+          i1: i1,
+          i2: i2,
+          iR1: iR1,
+          iR2: iR2,
+          iR3: i2
+        },
+        steps: steps
+      };
+    }
+
+    function displayResults(result, steps) {
+      let resultHTML = `
+        <h2>Mesh Current Results</h2>
+        <div class="conversion-equation">
+          Calculated using the mesh current method
+        </div>
+        <div class="result-item">
+          <div class="result-value">I1 = ${result.i1.toExponential(4)} A</div>
+          <div class="result-label">Mesh current 1</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value">I2 = ${result.i2.toExponential(4)} A</div>
+          <div class="result-label">Mesh current 2</div>
+        </div>
+        <h3 style="margin-top: 20px;">Branch Currents</h3>
+        <div class="result-item">
+          <div class="result-value">R1 current = ${result.iR1.toExponential(4)} A</div>
+          <div class="result-label">Current through resistor R1</div>
+        </div>
+        <div class="result-item">
+          <div class="result-value">R2 current = ${result.iR2.toExponential(4)} A</div>
+          <div class="result-label">Current through resistor R2</div>
+        </div>
+      `;
+      
+      if (result.iR3 !== undefined) {
+        resultHTML += `
+          <div class="result-item">
+            <div class="result-value">R3 current = ${result.iR3.toExponential(4)} A</div>
+            <div class="result-label">Current through resistor R3</div>
+          </div>
+        `;
+      }
+      
+      if (result.iR4 !== undefined) {
+        resultHTML += `
+          <div class="result-item">
+            <div class="result-value">R4 current = ${result.iR4.toExponential(4)} A</div>
+            <div class="result-label">Current through resistor R4</div>
+          </div>
+        `;
+      }
+      
+      document.getElementById("results").innerHTML = resultHTML;
+      document.getElementById("steps").innerHTML = steps;
+    }
+
+    function resetCalculator() {
+      document.getElementById("vs").value = '12';
+      document.getElementById("r1").value = '1000';
+      document.getElementById("r2").value = '2000';
+      document.getElementById("r3").value = '3000';
+      document.getElementById("r4").value = '4000';
+      document.getElementById("is").value = '0.01';
+      document.getElementById("results").innerHTML = '';
+      document.getElementById("steps").innerHTML = '';
+    }
+
+    function showError(message) {
+      document.getElementById("results").innerHTML = `
+        <div class="error">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+          ${message}
+        </div>
+      `;
+      document.getElementById("steps").innerHTML = '';
+    }
+  </script>
+</body>
+</html>

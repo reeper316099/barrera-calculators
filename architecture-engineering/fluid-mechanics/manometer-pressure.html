@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Manometer Pressure Calculator</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .calculator {
+      padding: 25px;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+    }
+
+    .input-section h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+
+    .results {
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .results h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+    }
+
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .steps {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+    }
+
+    .steps h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--accent);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .step-content {
+      margin-left: 5px;
+    }
+
+    .equation {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .error {
+      color: var(--error);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a href="../../misc./index.html">Misc.</a></li>
+  </ul>
+</nav>
+
+<div class="containerb">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../index.html">Science of Architecture & Engineering</a> &gt; 
+    <a href="index.html">Fluid Mechanics</a> &gt;
+    Manometer Pressure Calculator
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Manometer Pressure Calculator</h1>
+      <p class="subtitle">Calculate pressure difference from manometer readings</p>
+    </header>
+
+    <div class="calculator">
+      <div class="input-section">
+        <h3>Fluid Properties</h3>
+        <div class="input-field">
+          <label for="rho">Fluid Density (ρ) in kg/m³</label>
+          <input type="number" id="rho" step="any" placeholder="e.g., 1000 for water">
+        </div>
+        <div class="input-field">
+          <label for="g">Gravitational Acceleration (g) in m/s²</label>
+          <input type="number" id="g" value="9.81" step="any" placeholder="Standard gravity">
+        </div>
+      </div>
+
+      <div class="input-section">
+        <h3>Manometer Details</h3>
+        <div class="input-field">
+          <label for="h">Height Difference (h) in meters</label>
+          <input type="number" id="h" step="any" placeholder="Manometer column height difference">
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="calculatePressure()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Calculate
+        </button>
+        <button class="btn-secondary" onclick="resetFields()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="results" id="results"></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+
+  <script>
+    function calculatePressure() {
+      const rho = parseFloat(document.getElementById("rho").value);
+      const g = parseFloat(document.getElementById("g").value);
+      const h = parseFloat(document.getElementById("h").value);
+
+      // Validate inputs
+      if (isNaN(rho)) {
+        showError("Please enter a valid fluid density (ρ)");
+        document.getElementById("rho").focus();
+        return;
+      }
+      if (rho <= 0) {
+        showError("Fluid density must be positive");
+        document.getElementById("rho").focus();
+        return;
+      }
+      if (isNaN(g)) {
+        showError("Please enter a valid gravitational acceleration (g)");
+        document.getElementById("g").focus();
+        return;
+      }
+      if (g <= 0) {
+        showError("Gravitational acceleration must be positive");
+        document.getElementById("g").focus();
+        return;
+      }
+      if (isNaN(h)) {
+        showError("Please enter a valid height difference (h)");
+        document.getElementById("h").focus();
+        return;
+      }
+      if (h <= 0) {
+        showError("Height difference must be positive");
+        document.getElementById("h").focus();
+        return;
+      }
+
+      // Calculate pressure difference: ΔP = ρ * g * h
+      const pressureDifference = rho * g * h;
+      
+      // Display results
+      document.getElementById("results").innerHTML = `
+        <h2>Results</h2>
+        <div class="result-item">
+          <div class="result-value">${pressureDifference.toFixed(2)} Pa</div>
+          <div class="result-label">Pressure Difference (ΔP)</div>
+        </div>
+      `;
+
+      // Generate step-by-step solution
+      generateSteps(rho, g, h, pressureDifference);
+    }
+
+    function generateSteps(rho, g, h, pressureDifference) {
+      document.getElementById("steps").innerHTML = `
+        <h3>Step-by-Step Solution</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>Manometer Principle:</strong>
+            <p>The pressure difference is calculated using the hydrostatic pressure formula:</p>
+            <div class="equation">ΔP = ρ × g × h</div>
+            <p>Where:</p>
+            <ul>
+              <li>ρ = fluid density = ${rho} kg/m³</li>
+              <li>g = gravitational acceleration = ${g} m/s²</li>
+              <li>h = height difference = ${h} m</li>
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Multiply Density and Gravity:</strong>
+            <div class="equation">ρ × g = ${rho} × ${g} = ${(rho * g).toFixed(2)} kg/(m²·s²)</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Multiply by Height Difference:</strong>
+            <div class="equation">${(rho * g).toFixed(2)} × ${h} = ${pressureDifference.toFixed(2)} kg/(m·s²)</div>
+            <p>1 kg/(m·s²) = 1 Pascal (Pa)</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <strong>Final Pressure Difference:</strong>
+            <div class="equation">ΔP = ${pressureDifference.toFixed(2)} Pa</div>
+            <p>This is the pressure difference indicated by the manometer's height difference.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function showError(message) {
+      document.getElementById("results").innerHTML = `
+        <div class="error">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          ${message}
+        </div>
+      `;
+      document.getElementById("steps").innerHTML = '';
+    }
+
+    function resetFields() {
+      document.getElementById("rho").value = '';
+      document.getElementById("g").value = '9.81';
+      document.getElementById("h").value = '';
+      document.getElementById("results").innerHTML = '';
+      document.getElementById("steps").innerHTML = '';
+    }
+
+    // Add Enter key functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = document.querySelectorAll('input[type="number"]');
+      
+      inputs.forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            calculatePressure();
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

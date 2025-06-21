@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Bernoulli's Equation Calculator</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .instructions {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 15px;
+      margin: 15px;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent);
+    }
+
+    .calculator {
+      padding: 25px;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+    }
+
+    .input-section h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+
+    .results {
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .results h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+    }
+
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .steps {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+    }
+
+    .steps h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--accent);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .step-content {
+      margin-left: 5px;
+    }
+
+    .equation {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .bernoulli-equation {
+      font-family: serif;
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: var(--border-radius);
+    }
+
+    .error {
+      color: var(--error);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    .equation-type {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .equation-type label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 10px 15px;
+      background: var(--light);
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+    }
+
+    .equation-type input[type="radio"] {
+      margin: 0;
+      width: auto;
+    }
+
+    .equation-type label:hover {
+      background: #e9ecef;
+    }
+
+    .equation-type input:checked + label {
+      background: var(--accent);
+      color: white;
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .equation-type {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a href="../../misc./index.html">Misc.</a></li>
+  </ul>
+</nav>
+
+<div class="containerb">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../index.html">Science of Architecture & Engineering</a> &gt; 
+    <a href="index.html">Fluid Mechanics</a> &gt;
+    Bernoulli's Equation Calculator
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Bernoulli's Equation Calculator</h1>
+      <p class="subtitle">Calculate fluid flow parameters using different forms of Bernoulli's equation</p>
+    </header>
+
+    <div class="instructions">
+      <p>Leave exactly one field blank (either P, v, or h at either point) to solve for it. All other fields must be filled.</p>
+      <p>Select which form of Bernoulli's equation you want to use:</p>
+    </div>
+
+    <div class="calculator">
+      <div class="input-section">
+        <h3>Equation Form</h3>
+        <div class="equation-type">
+          <input type="radio" id="pressure-form" name="equation-type" value="pressure" checked>
+          <label for="pressure-form">Pressure Form (P + ½ρv² + ρgh = constant)</label>
+          
+          <input type="radio" id="head-form" name="equation-type" value="head">
+          <label for="head-form">Head Form (P/ρg + v²/2g + h = constant)</label>
+          
+          <input type="radio" id="energy-form" name="equation-type" value="energy">
+          <label for="energy-form">Energy Form (P/ρ + v²/2 + gh = constant)</label>
+        </div>
+
+        <h3>Fluid Properties</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="rho">Density ρ (kg/m³)</label>
+            <input type="number" id="rho" step="any" placeholder="e.g., 1000 for water">
+          </div>
+          <div class="input-field">
+            <label for="g">Gravity g (m/s²)</label>
+            <input type="number" id="g" value="9.81" step="any">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <h3>Point 1</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="P1">Pressure P₁ (Pa)</label>
+            <input type="number" id="P1" step="any" placeholder="Leave blank to solve">
+          </div>
+          <div class="input-field">
+            <label for="v1">Velocity v₁ (m/s)</label>
+            <input type="number" id="v1" step="any" placeholder="Leave blank to solve">
+          </div>
+          <div class="input-field">
+            <label for="h1">Height h₁ (m)</label>
+            <input type="number" id="h1" step="any" placeholder="Leave blank to solve">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <h3>Point 2</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="P2">Pressure P₂ (Pa)</label>
+            <input type="number" id="P2" step="any" placeholder="Leave blank to solve">
+          </div>
+          <div class="input-field">
+            <label for="v2">Velocity v₂ (m/s)</label>
+            <input type="number" id="v2" step="any" placeholder="Leave blank to solve">
+          </div>
+          <div class="input-field">
+            <label for="h2">Height h₂ (m)</label>
+            <input type="number" id="h2" step="any" placeholder="Leave blank to solve">
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="solveBernoulli()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+          Solve Equation
+        </button>
+        <button class="btn-secondary" onclick="resetFields()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="results" id="results"></div>
+    </div>
+  </div>
+
+  <script>
+    // Add event listeners for Enter key
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          solveBernoulli();
+        }
+      });
+    });
+
+    function solveBernoulli() {
+      const equationType = document.querySelector('input[name="equation-type"]:checked').value;
+      const ρ = parseFloat(document.getElementById("rho").value);
+      const g = parseFloat(document.getElementById("g").value);
+
+      const P1 = parseFloat(document.getElementById("P1").value);
+      const v1 = parseFloat(document.getElementById("v1").value);
+      const h1 = parseFloat(document.getElementById("h1").value);
+      const P2 = parseFloat(document.getElementById("P2").value);
+      const v2 = parseFloat(document.getElementById("v2").value);
+      const h2 = parseFloat(document.getElementById("h2").value);
+
+      // Check which fields are blank
+      const known = {
+        rho: !isNaN(ρ),
+        g: !isNaN(g),
+        P1: !isNaN(P1),
+        v1: !isNaN(v1),
+        h1: !isNaN(h1),
+        P2: !isNaN(P2),
+        v2: !isNaN(v2),
+        h2: !isNaN(h2)
+      };
+
+      // Check if density and gravity are provided
+      if (!known.rho || !known.g) {
+        document.getElementById("results").innerHTML = `
+          <div class="error">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            Please provide values for density and gravity.
+          </div>
+        `;
+        return;
+      }
+
+      // Count blank fields (should be exactly one)
+      const blankFields = [known.P1, known.v1, known.h1, known.P2, known.v2, known.h2]
+        .filter(val => !val).length;
+
+      if (blankFields !== 1) {
+        document.getElementById("results").innerHTML = `
+          <div class="error">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            Please leave exactly ONE field blank to solve for it.
+          </div>
+        `;
+        return;
+      }
+
+      // Calculate based on selected equation form
+      let result = "";
+      let solution = "";
+      let steps = "";
+      let equationDisplay = "";
+      let lhs = 0, rhs = 0;
+
+      // Set up equation display and calculate terms based on form
+      switch(equationType) {
+        case "pressure":
+          equationDisplay = "P + ½ρv² + ρgh = constant";
+          lhs = (known.P1 ? P1 : 0) + (known.v1 ? 0.5 * ρ * v1 * v1 : 0) + (known.h1 ? ρ * g * h1 : 0);
+          rhs = (known.P2 ? P2 : 0) + (known.v2 ? 0.5 * ρ * v2 * v2 : 0) + (known.h2 ? ρ * g * h2 : 0);
+          break;
+        case "head":
+          equationDisplay = "P/ρg + v²/2g + h = constant";
+          lhs = (known.P1 ? P1/(ρ*g) : 0) + (known.v1 ? (v1*v1)/(2*g) : 0) + (known.h1 ? h1 : 0);
+          rhs = (known.P2 ? P2/(ρ*g) : 0) + (known.v2 ? (v2*v2)/(2*g) : 0) + (known.h2 ? h2 : 0);
+          break;
+        case "energy":
+          equationDisplay = "P/ρ + v²/2 + gh = constant";
+          lhs = (known.P1 ? P1/ρ : 0) + (known.v1 ? 0.5 * v1 * v1 : 0) + (known.h1 ? g * h1 : 0);
+          rhs = (known.P2 ? P2/ρ : 0) + (known.v2 ? 0.5 * v2 * v2 : 0) + (known.h2 ? g * h2 : 0);
+          break;
+      }
+
+      // Solve for the missing variable based on equation form
+      if (!known.P1) {
+        let P1_calc;
+        if (equationType === "pressure") {
+          P1_calc = rhs - (0.5 * ρ * v1 * v1 + ρ * g * h1);
+          result = `P₁ = ${P1_calc.toFixed(2)} Pa`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for P₁:
+                <div class="equation">P₁ = (P₂ + ½ρv₂² + ρgh₂) - (½ρv₁² + ρgh₁)</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                Substitute known values:
+                <div class="equation">P₁ = (${P2} + ½×${ρ}×${v2}² + ${ρ}×${g}×${h2}) - (½×${ρ}×${v1}² + ${ρ}×${g}×${h1})</div>
+              </div>
+            </div>
+          `;
+        } else if (equationType === "head") {
+          P1_calc = ρ * g * (rhs - ((v1*v1)/(2*g) + h1));
+          result = `P₁ = ${P1_calc.toFixed(2)} Pa`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for P₁:
+                <div class="equation">P₁ = ρg × [(P₂/ρg + v₂²/2g + h₂) - (v₁²/2g + h₁)]</div>
+              </div>
+            </div>
+          `;
+        } else { // energy form
+          P1_calc = ρ * (rhs - (0.5 * v1 * v1 + g * h1));
+          result = `P₁ = ${P1_calc.toFixed(2)} Pa`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for P₁:
+                <div class="equation">P₁ = ρ × [(P₂/ρ + v₂²/2 + gh₂) - (v₁²/2 + gh₁)]</div>
+              </div>
+            </div>
+          `;
+        }
+        solution = `
+          <div class="result-item">
+            <div class="result-value">${result}</div>
+            <div class="result-label">Pressure at Point 1 (P₁)</div>
+          </div>
+        `;
+        steps += `
+          <div class="step">
+            <div class="step-number">${equationType === "pressure" ? '3' : '2'}</div>
+            <div class="step-content">
+              Calculate result:
+              <div class="equation">${result}</div>
+            </div>
+          </div>
+        `;
+      }
+      else if (!known.v1) {
+        let v1_calc;
+        if (equationType === "pressure") {
+          v1_calc = Math.sqrt((2 / ρ) * (rhs - P1 - ρ * g * h1));
+          result = `v₁ = ${v1_calc.toFixed(2)} m/s`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for v₁:
+                <div class="equation">v₁ = √[2/ρ × ((P₂ + ½ρv₂² + ρgh₂) - P₁ - ρgh₁)]</div>
+              </div>
+            </div>
+          `;
+        } else if (equationType === "head") {
+          v1_calc = Math.sqrt(2 * g * (rhs - P1/(ρ*g) - h1));
+          result = `v₁ = ${v1_calc.toFixed(2)} m/s`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for v₁:
+                <div class="equation">v₁ = √[2g × ((P₂/ρg + v₂²/2g + h₂) - P₁/ρg - h₁)]</div>
+              </div>
+            </div>
+          `;
+        } else { // energy form
+          v1_calc = Math.sqrt(2 * (rhs - P1/ρ - g * h1));
+          result = `v₁ = ${v1_calc.toFixed(2)} m/s`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for v₁:
+                <div class="equation">v₁ = √[2 × ((P₂/ρ + v₂²/2 + gh₂) - P₁/ρ - gh₁)]</div>
+              </div>
+            </div>
+          `;
+        }
+        solution = `
+          <div class="result-item">
+            <div class="result-value">${v1_calc.toFixed(2)} m/s</div>
+            <div class="result-label">Velocity at Point 1 (v₁)</div>
+          </div>
+        `;
+        steps += `
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              Calculate result:
+              <div class="equation">${result}</div>
+            </div>
+          </div>
+        `;
+      }
+      else if (!known.h1) {
+        let h1_calc;
+        if (equationType === "pressure") {
+          h1_calc = (rhs - P1 - 0.5 * ρ * v1 * v1) / (ρ * g);
+          result = `h₁ = ${h1_calc.toFixed(2)} m`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for h₁:
+                <div class="equation">h₁ = [(P₂ + ½ρv₂² + ρgh₂) - P₁ - ½ρv₁²] / (ρg)</div>
+              </div>
+            </div>
+          `;
+        } else if (equationType === "head") {
+          h1_calc = rhs - P1/(ρ*g) - (v1*v1)/(2*g);
+          result = `h₁ = ${h1_calc.toFixed(2)} m`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for h₁:
+                <div class="equation">h₁ = (P₂/ρg + v₂²/2g + h₂) - P₁/ρg - v₁²/2g</div>
+              </div>
+            </div>
+          `;
+        } else { // energy form
+          h1_calc = (rhs - P1/ρ - 0.5 * v1 * v1) / g;
+          result = `h₁ = ${h1_calc.toFixed(2)} m`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for h₁:
+                <div class="equation">h₁ = [(P₂/ρ + v₂²/2 + gh₂) - P₁/ρ - v₁²/2] / g</div>
+              </div>
+            </div>
+          `;
+        }
+        solution = `
+          <div class="result-item">
+            <div class="result-value">${h1_calc.toFixed(2)} m</div>
+            <div class="result-label">Height at Point 1 (h₁)</div>
+          </div>
+        `;
+        steps += `
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              Calculate result:
+              <div class="equation">${result}</div>
+            </div>
+          </div>
+        `;
+      }
+      else if (!known.P2) {
+        let P2_calc;
+        if (equationType === "pressure") {
+          P2_calc = lhs - (0.5 * ρ * v2 * v2 + ρ * g * h2);
+          result = `P₂ = ${P2_calc.toFixed(2)} Pa`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for P₂:
+                <div class="equation">P₂ = (P₁ + ½ρv₁² + ρgh₁) - (½ρv₂² + ρgh₂)</div>
+              </div>
+            </div>
+          `;
+        } else if (equationType === "head") {
+          P2_calc = ρ * g * (lhs - ((v2*v2)/(2*g) + h2));
+          result = `P₂ = ${P2_calc.toFixed(2)} Pa`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for P₂:
+                <div class="equation">P₂ = ρg × [(P₁/ρg + v₁²/2g + h₁) - v₂²/2g - h₂]</div>
+              </div>
+            </div>
+          `;
+        } else { // energy form
+          P2_calc = ρ * (lhs - (0.5 * v2 * v2 + g * h2));
+          result = `P₂ = ${P2_calc.toFixed(2)} Pa`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for P₂:
+                <div class="equation">P₂ = ρ × [(P₁/ρ + v₁²/2 + gh₁) - v₂²/2 - gh₂]</div>
+              </div>
+            </div>
+          `;
+        }
+        solution = `
+          <div class="result-item">
+            <div class="result-value">${result}</div>
+            <div class="result-label">Pressure at Point 2 (P₂)</div>
+          </div>
+        `;
+        steps += `
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              Calculate result:
+              <div class="equation">${result}</div>
+            </div>
+          </div>
+        `;
+      }
+      else if (!known.v2) {
+        let v2_calc;
+        if (equationType === "pressure") {
+          v2_calc = Math.sqrt((2 / ρ) * (lhs - P2 - ρ * g * h2));
+          result = `v₂ = ${v2_calc.toFixed(2)} m/s`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for v₂:
+                <div class="equation">v₂ = √[2/ρ × ((P₁ + ½ρv₁² + ρgh₁) - P₂ - ρgh₂)]</div>
+              </div>
+            </div>
+          `;
+        } else if (equationType === "head") {
+          v2_calc = Math.sqrt(2 * g * (lhs - P2/(ρ*g) - h2));
+          result = `v₂ = ${v2_calc.toFixed(2)} m/s`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for v₂:
+                <div class="equation">v₂ = √[2g × ((P₁/ρg + v₁²/2g + h₁) - P₂/ρg - h₂)]</div>
+              </div>
+            </div>
+          `;
+        } else { // energy form
+          v2_calc = Math.sqrt(2 * (lhs - P2/ρ - g * h2));
+          result = `v₂ = ${v2_calc.toFixed(2)} m/s`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for v₂:
+                <div class="equation">v₂ = √[2 × ((P₁/ρ + v₁²/2 + gh₁) - P₂/ρ - gh₂)]</div>
+              </div>
+            </div>
+          `;
+        }
+        solution = `
+          <div class="result-item">
+            <div class="result-value">${v2_calc.toFixed(2)} m/s</div>
+            <div class="result-label">Velocity at Point 2 (v₂)</div>
+          </div>
+        `;
+        steps += `
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              Calculate result:
+              <div class="equation">${result}</div>
+            </div>
+          </div>
+        `;
+      }
+      else if (!known.h2) {
+        let h2_calc;
+        if (equationType === "pressure") {
+          h2_calc = (lhs - P2 - 0.5 * ρ * v2 * v2) / (ρ * g);
+          result = `h₂ = ${h2_calc.toFixed(2)} m`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for h₂:
+                <div class="equation">h₂ = [(P₁ + ½ρv₁² + ρgh₁) - P₂ - ½ρv₂²] / (ρg)</div>
+              </div>
+            </div>
+          `;
+        } else if (equationType === "head") {
+          h2_calc = lhs - P2/(ρ*g) - (v2*v2)/(2*g);
+          result = `h₂ = ${h2_calc.toFixed(2)} m`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for h₂:
+                <div class="equation">h₂ = (P₁/ρg + v₁²/2g + h₁) - P₂/ρg - v₂²/2g</div>
+              </div>
+            </div>
+          `;
+        } else { // energy form
+          h2_calc = (lhs - P2/ρ - 0.5 * v2 * v2) / g;
+          result = `h₂ = ${h2_calc.toFixed(2)} m`;
+          steps = `
+            <div class="step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                Rearrange to solve for h₂:
+                <div class="equation">h₂ = [(P₁/ρ + v₁²/2 + gh₁) - P₂/ρ - v₂²/2] / g</div>
+              </div>
+            </div>
+          `;
+        }
+        solution = `
+          <div class="result-item">
+            <div class="result-value">${h2_calc.toFixed(2)} m</div>
+            <div class="result-label">Height at Point 2 (h₂)</div>
+          </div>
+        `;
+        steps += `
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              Calculate result:
+              <div class="equation">${result}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      document.getElementById("results").innerHTML = `
+        <h2>Solution (${equationType.charAt(0).toUpperCase() + equationType.slice(1)} Form)</h2>
+        <div class="bernoulli-equation">
+          ${equationDisplay}
+        </div>
+        ${solution}
+        <div class="steps">
+          <h3>Calculation Steps</h3>
+          ${steps}
+        </div>
+      `;
+    }
+
+    function resetFields() {
+      document.getElementById("rho").value = '';
+      document.getElementById("g").value = '9.81';
+      document.getElementById("P1").value = '';
+      document.getElementById("v1").value = '';
+      document.getElementById("h1").value = '';
+      document.getElementById("P2").value = '';
+      document.getElementById("v2").value = '';
+      document.getElementById("h2").value = '';
+      document.getElementById("results").innerHTML = '';
+      document.getElementById("pressure-form").checked = true;
+    }
+  </script>
+</body>
+</html>

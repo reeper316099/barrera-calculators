@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Metric Unit Converter | Science of Innovation and Design</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .instructions {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 15px;
+      margin: 15px;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent);
+    }
+
+    .calculator {
+      padding: 25px;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+    }
+
+    .input-section h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .input-field input, .input-field select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus, .input-field select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+
+    .results {
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .results h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+    }
+
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .steps {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+    }
+
+    .steps h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--accent);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .step-content {
+      margin-left: 5px;
+    }
+
+    .equation {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .conversion-equation {
+      font-family: serif;
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: var(--border-radius);
+    }
+
+    .error {
+      color: var(--error);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a href="../../misc./index.html">Misc.</a></li>
+  </ul>
+</nav>
+
+<div class="containerb">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../index.html">Misc.</a> &gt; 
+    <a href="index.html">Units</a> &gt;
+    Metric Unit Converter
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Metric Unit Converter</h1>
+      <p class="subtitle">Convert between metric units with precision</p>
+    </header>
+
+    <div class="instructions">
+      <p>Select a quantity type and enter a value to convert between metric units.</p>
+      <p>All conversions use standard metric prefixes (kilo, milli, micro, etc.).</p>
+    </div>
+
+    <div class="calculator">
+      <div class="input-section">
+        <h3>Conversion Parameters</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="quantity-type">Quantity Type</label>
+            <select id="quantity-type" onchange="updateUnitOptions()">
+              <option value="length">Length</option>
+              <option value="mass">Mass</option>
+              <option value="time">Time</option>
+              <option value="temperature">Temperature</option>
+              <option value="area">Area</option>
+              <option value="volume">Volume</option>
+              <option value="velocity">Velocity</option>
+              <option value="pressure">Pressure</option>
+              <option value="energy">Energy</option>
+              <option value="power">Power</option>
+            </select>
+          </div>
+          <div class="input-field">
+            <label for="input-value">Value to Convert</label>
+            <input type="number" id="input-value" step="any" placeholder="Enter value">
+          </div>
+        </div>
+      </div>
+
+      <div class="input-section">
+        <h3>Unit Selection</h3>
+        <div class="input-grid">
+          <div class="input-field">
+            <label for="from-unit">From Unit</label>
+            <select id="from-unit"></select>
+          </div>
+          <div class="input-field">
+            <label for="to-unit">To Unit</label>
+            <select id="to-unit"></select>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="convertUnits()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+          </svg>
+          Convert
+        </button>
+        <button class="btn-secondary" onclick="swapUnits()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
+          </svg>
+          Swap Units
+        </button>
+        <button class="btn-secondary" onclick="resetConverter()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="results" id="results"></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+
+  <script>
+    // Unit definitions
+    const unitSystems = {
+      length: {
+        name: "Length",
+        base: "meter",
+        units: {
+          "kilometer": 1000,
+          "meter": 1,
+          "centimeter": 0.01,
+          "millimeter": 0.001,
+          "micrometer": 0.000001,
+          "nanometer": 0.000000001
+        }
+      },
+      mass: {
+        name: "Mass",
+        base: "gram",
+        units: {
+          "metric ton": 1000000,
+          "kilogram": 1000,
+          "gram": 1,
+          "milligram": 0.001,
+          "microgram": 0.000001
+        }
+      },
+      time: {
+        name: "Time",
+        base: "second",
+        units: {
+          "hour": 3600,
+          "minute": 60,
+          "second": 1,
+          "millisecond": 0.001,
+          "microsecond": 0.000001,
+          "nanosecond": 0.000000001
+        }
+      },
+      temperature: {
+        name: "Temperature",
+        base: "kelvin",
+        units: {
+          "kelvin": 1,
+          "celsius": {
+            toBase: (val) => val + 273.15,
+            fromBase: (val) => val - 273.15
+          },
+          "fahrenheit": {
+            toBase: (val) => (val - 32) * 5/9 + 273.15,
+            fromBase: (val) => (val - 273.15) * 9/5 + 32
+          }
+        }
+      },
+      area: {
+        name: "Area",
+        base: "square meter",
+        units: {
+          "square kilometer": 1000000,
+          "square meter": 1,
+          "square centimeter": 0.0001,
+          "square millimeter": 0.000001,
+          "hectare": 10000
+        }
+      },
+      volume: {
+        name: "Volume",
+        base: "liter",
+        units: {
+          "cubic meter": 1000,
+          "liter": 1,
+          "milliliter": 0.001,
+          "cubic centimeter": 0.001,
+          "cubic millimeter": 0.000001
+        }
+      },
+      velocity: {
+        name: "Velocity",
+        base: "meter per second",
+        units: {
+          "kilometer per second": 1000,
+          "meter per second": 1,
+          "kilometer per hour": 0.277778,
+          "mile per hour": 0.44704
+        }
+      },
+      pressure: {
+        name: "Pressure",
+        base: "pascal",
+        units: {
+          "kilopascal": 1000,
+          "pascal": 1,
+          "bar": 100000,
+          "millibar": 100,
+          "atmosphere": 101325
+        }
+      },
+      energy: {
+        name: "Energy",
+        base: "joule",
+        units: {
+          "kilojoule": 1000,
+          "joule": 1,
+          "calorie": 4.184,
+          "kilocalorie": 4184,
+          "watt-hour": 3600,
+          "kilowatt-hour": 3600000
+        }
+      },
+      power: {
+        name: "Power",
+        base: "watt",
+        units: {
+          "kilowatt": 1000,
+          "watt": 1,
+          "milliwatt": 0.001,
+          "horsepower": 745.7
+        }
+      }
+    };
+
+    // Initialize unit options
+    document.addEventListener('DOMContentLoaded', function() {
+      updateUnitOptions();
+      
+      // Add Enter key functionality
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            convertUnits();
+          }
+        });
+      });
+    });
+
+    function updateUnitOptions() {
+      const quantityType = document.getElementById("quantity-type").value;
+      const fromUnit = document.getElementById("from-unit");
+      const toUnit = document.getElementById("to-unit");
+      
+      // Clear existing options
+      fromUnit.innerHTML = '';
+      toUnit.innerHTML = '';
+      
+      // Add new options
+      const units = Object.keys(unitSystems[quantityType].units);
+      units.forEach(unit => {
+        const option1 = document.createElement("option");
+        option1.value = unit;
+        option1.textContent = unit;
+        fromUnit.appendChild(option1);
+        
+        const option2 = document.createElement("option");
+        option2.value = unit;
+        option2.textContent = unit;
+        toUnit.appendChild(option2);
+      });
+      
+      // Set different default units
+      if (units.length > 1) {
+        toUnit.selectedIndex = 1;
+      }
+    }
+
+    function convertUnits() {
+      const quantityType = document.getElementById("quantity-type").value;
+      const inputValue = parseFloat(document.getElementById("input-value").value);
+      const fromUnit = document.getElementById("from-unit").value;
+      const toUnit = document.getElementById("to-unit").value;
+      
+      if (isNaN(inputValue)) {
+        showError("Please enter a valid number to convert");
+        return;
+      }
+      
+      if (fromUnit === toUnit) {
+        showError("Cannot convert between identical units");
+        return;
+      }
+      
+      try {
+        const result = convert(quantityType, inputValue, fromUnit, toUnit);
+        displayConversion(quantityType, inputValue, fromUnit, result, toUnit);
+      } catch (error) {
+        showError(error.message);
+      }
+    }
+
+    function convert(quantityType, value, fromUnit, toUnit) {
+      const system = unitSystems[quantityType];
+      const units = system.units;
+      
+      // Handle temperature separately
+      if (quantityType === "temperature") {
+        if (typeof units[fromUnit] === 'object' && typeof units[toUnit] === 'object') {
+          // Convert through base unit (kelvin)
+          const baseValue = units[fromUnit].toBase(value);
+          return units[toUnit].fromBase(baseValue);
+        } else if (typeof units[fromUnit] === 'object') {
+          // From special unit to base unit
+          return units[fromUnit].toBase(value);
+        } else if (typeof units[toUnit] === 'object') {
+          // From base unit to special unit
+          return units[toUnit].fromBase(value);
+        }
+      }
+      
+      // Standard linear conversion
+      const fromFactor = typeof units[fromUnit] === 'number' ? units[fromUnit] : 1;
+      const toFactor = typeof units[toUnit] === 'number' ? units[toUnit] : 1;
+      
+      return value * fromFactor / toFactor;
+    }
+
+    function displayConversion(quantityType, inputValue, fromUnit, result, toUnit) {
+      const system = unitSystems[quantityType];
+      
+      document.getElementById("results").innerHTML = `
+        <h2>Conversion Result</h2>
+        <div class="conversion-equation">
+          ${inputValue} ${fromUnit} = ${result.toFixed(6)} ${toUnit}
+        </div>
+        <div class="result-item">
+          <div class="result-value">${result.toExponential(6)} ${toUnit}</div>
+          <div class="result-label">${system.name} Conversion</div>
+        </div>
+      `;
+      
+      document.getElementById("steps").innerHTML = `
+        <h3>Conversion Steps</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>Input Value:</strong>
+            <div class="equation">${inputValue} ${fromUnit}</div>
+          </div>
+        </div>
+        ${quantityType === "temperature" ? `
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Temperature Conversion:</strong>
+            <div class="equation">Using ${fromUnit} → Kelvin → ${toUnit} formulas</div>
+          </div>
+        </div>
+        ` : `
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Conversion Factor:</strong>
+            <div class="equation">1 ${fromUnit} = ${(unitSystems[quantityType].units[fromUnit]/unitSystems[quantityType].units[toUnit]).toExponential(6)} ${toUnit}</div>
+          </div>
+        </div>
+        `}
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Calculation:</strong>
+            <div class="equation">${inputValue} × ${(unitSystems[quantityType].units[fromUnit]/unitSystems[quantityType].units[toUnit]).toExponential(6)} = ${result.toExponential(6)} ${toUnit}</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function swapUnits() {
+      const fromUnit = document.getElementById("from-unit");
+      const toUnit = document.getElementById("to-unit");
+      const temp = fromUnit.value;
+      fromUnit.value = toUnit.value;
+      toUnit.value = temp;
+      
+      // Convert immediately if there's a value
+      if (document.getElementById("input-value").value) {
+        convertUnits();
+      }
+    }
+
+    function resetConverter() {
+      document.getElementById("input-value").value = '';
+      document.getElementById("results").innerHTML = '';
+      document.getElementById("steps").innerHTML = '';
+      updateUnitOptions();
+    }
+
+    function showError(message) {
+      document.getElementById("results").innerHTML = `
+        <div class="error">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+          ${message}
+        </div>
+      `;
+      document.getElementById("steps").innerHTML = '';
+    }
+  </script>
+</body>
+</html>

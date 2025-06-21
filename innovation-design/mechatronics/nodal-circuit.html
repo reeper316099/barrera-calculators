@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Nodal Analysis Calculator | Science of Innovation and Design</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .instructions {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 15px;
+      margin: 15px;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent);
+    }
+
+    .calculator {
+      padding: 25px;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+      background: var(--light);
+      padding: 20px;
+      border-radius: var(--border-radius);
+    }
+
+    .input-section h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 5px;
+    }
+
+    .input-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+
+    .results {
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .results h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 15px;
+    }
+
+    .result-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .result-label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .steps {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+    }
+
+    .steps h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--accent);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .step-content {
+      margin-left: 5px;
+    }
+
+    .equation {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 5px 0;
+      font-size: 1.1rem;
+    }
+
+    .circuit-equation {
+      font-family: serif;
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 15px 0;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: var(--border-radius);
+    }
+
+    .error {
+      color: var(--error);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    .node-matrix {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0;
+    }
+
+    .node-matrix th, .node-matrix td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .node-matrix th {
+      background-color: rgba(67, 97, 238, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+      
+      .input-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a href="../../misc./index.html">Misc.</a></li>
+  </ul>
+</nav>
+
+<div class="containerb">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../index.html">Science of Innovation & Design</a> &gt; 
+    <a href="index.html">Mechatronics</a> &gt;
+    Nodal Circuit Calculator
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Nodal Circuit Analysis Calculator</h1>
+      <p class="subtitle">Solve circuit node voltages using nodal analysis</p>
+    </header>
+
+    <div class="instructions">
+      <p>Enter the circuit parameters below. For each node, specify connected components and their values.</p>
+      <p>Reference node (ground) is automatically set as 0V.</p>
+    </div>
+
+    <div class="calculator">
+      <div class="input-section">
+        <h3>Circuit Configuration</h3>
+        <div class="input-field">
+          <label for="node-count">Number of Nodes (excluding ground)</label>
+          <input type="number" id="node-count" min="1" max="6" value="2" onchange="updateNodeInputs()">
+        </div>
+      </div>
+
+      <div id="node-inputs">
+        <!-- Dynamic node inputs will appear here -->
+      </div>
+
+      <div class="input-section" id="component-inputs">
+        <h3>Component Values</h3>
+        <div class="input-grid" id="resistor-inputs">
+          <!-- Dynamic resistor inputs will appear here -->
+        </div>
+        <div class="input-grid" id="current-source-inputs">
+          <!-- Dynamic current source inputs will appear here -->
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="solveNodalAnalysis()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          </svg>
+          Solve Circuit
+        </button>
+        <button class="btn-secondary" onclick="resetFields()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="results" id="results"></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize node and component inputs
+    document.addEventListener('DOMContentLoaded', function() {
+      updateNodeInputs();
+      
+      // Add Enter key functionality
+      document.querySelectorAll('input').forEach(input => {
+        input.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') {
+            solveNodalAnalysis();
+          }
+        });
+      });
+    });
+
+    function updateNodeInputs() {
+      const nodeCount = parseInt(document.getElementById("node-count").value);
+      const nodeInputs = document.getElementById("node-inputs");
+      const resistorInputs = document.getElementById("resistor-inputs");
+      const currentSourceInputs = document.getElementById("current-source-inputs");
+      
+      // Clear existing inputs
+      nodeInputs.innerHTML = '';
+      resistorInputs.innerHTML = '';
+      currentSourceInputs.innerHTML = '';
+      
+      // Create node connection inputs
+      nodeInputs.innerHTML = `
+        <div class="input-section">
+          <h3>Node Connections</h3>
+          <p>Specify resistors between nodes (use 0 for ground)</p>
+          <div class="input-grid" id="resistor-connections"></div>
+        </div>
+      `;
+      
+      const resistorConnections = document.getElementById("resistor-connections");
+      
+      // Add resistor connection inputs
+      for (let i = 1; i <= nodeCount; i++) {
+        for (let j = i + 1; j <= nodeCount; j++) {
+          resistorConnections.innerHTML += `
+            <div class="input-field">
+              <label for="R${i}-${j}">Resistor between Node ${i} and ${j} (Ω)</label>
+              <input type="number" id="R${i}-${j}" step="any" placeholder="Leave blank if not connected">
+            </div>
+          `;
+        }
+        // Add connection to ground (0)
+        resistorConnections.innerHTML += `
+          <div class="input-field">
+            <label for="R${i}-0">Resistor between Node ${i} and Ground (Ω)</label>
+            <input type="number" id="R${i}-0" step="any" placeholder="Leave blank if not connected">
+          </div>
+        `;
+      }
+      
+      // Add current source inputs
+      currentSourceInputs.innerHTML = `
+        <div class="input-section">
+          <h3>Current Sources</h3>
+          <p>Enter current sources (positive = entering node)</p>
+          <div class="input-grid" id="current-sources"></div>
+        </div>
+      `;
+      
+      const currentSources = document.getElementById("current-sources");
+      
+      for (let i = 1; i <= nodeCount; i++) {
+        currentSources.innerHTML += `
+          <div class="input-field">
+            <label for="I${i}">Current source at Node ${i} (A)</label>
+            <input type="number" id="I${i}" step="any" value="0">
+          </div>
+        `;
+      }
+    }
+
+    function solveNodalAnalysis() {
+      const nodeCount = parseInt(document.getElementById("node-count").value);
+      
+      try {
+        // 1. Build conductance matrix G and current vector I
+        const G = Array(nodeCount).fill().map(() => Array(nodeCount).fill(0));
+        const I = Array(nodeCount).fill(0);
+        
+        // Process resistors
+        for (let i = 1; i <= nodeCount; i++) {
+          for (let j = i + 1; j <= nodeCount; j++) {
+            const Rij = parseFloat(document.getElementById(`R${i}-${j}`).value);
+            if (!isNaN(Rij) && Rij > 0) {
+              const conductance = 1 / Rij;
+              G[i-1][i-1] += conductance;
+              G[j-1][j-1] += conductance;
+              G[i-1][j-1] -= conductance;
+              G[j-1][i-1] -= conductance;
+            }
+          }
+          
+          // Process connection to ground
+          const Ri0 = parseFloat(document.getElementById(`R${i}-0`).value);
+          if (!isNaN(Ri0) && Ri0 > 0) {
+            G[i-1][i-1] += 1 / Ri0;
+          }
+        }
+        
+        // Process current sources
+        for (let i = 1; i <= nodeCount; i++) {
+          const Ii = parseFloat(document.getElementById(`I${i}`).value) || 0;
+          I[i-1] = Ii;
+        }
+        
+        // 2. Solve the matrix equation GV = I
+        const voltages = solveLinearSystem(G, I);
+        
+        // 3. Display results
+        displayResults(G, I, voltages);
+        
+      } catch (error) {
+        document.getElementById("results").innerHTML = `
+          <div class="error">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            ${error.message}
+          </div>
+        `;
+        document.getElementById("steps").innerHTML = '';
+      }
+    }
+
+    function solveLinearSystem(G, I) {
+      // Simple Gaussian elimination for small systems
+      const n = G.length;
+      const V = [...I];
+      
+      // Forward elimination
+      for (let i = 0; i < n; i++) {
+        if (Math.abs(G[i][i]) < 1e-10) {
+          throw new Error("Matrix is singular or poorly conditioned. Check your circuit connections.");
+        }
+        
+        for (let j = i + 1; j < n; j++) {
+          const factor = G[j][i] / G[i][i];
+          for (let k = i; k < n; k++) {
+            G[j][k] -= factor * G[i][k];
+          }
+          V[j] -= factor * V[i];
+        }
+      }
+      
+      // Back substitution
+      for (let i = n - 1; i >= 0; i--) {
+        let sum = 0;
+        for (let j = i + 1; j < n; j++) {
+          sum += G[i][j] * V[j];
+        }
+        V[i] = (V[i] - sum) / G[i][i];
+      }
+      
+      return V;
+    }
+
+    function displayResults(G, I, voltages) {
+      const nodeCount = voltages.length;
+      let resultsHTML = `
+        <h2>Nodal Analysis Results</h2>
+        <div class="circuit-equation">
+          GV = I → V = G<sup>-1</sup>I
+        </div>
+      `;
+      
+      // Display node voltages
+      resultsHTML += `<div class="result-item"><div class="result-label">Node Voltages:</div>`;
+      voltages.forEach((v, i) => {
+        resultsHTML += `
+          <div class="result-value">V<sub>${i+1}</sub> = ${v.toFixed(4)} V</div>
+        `;
+      });
+      resultsHTML += `</div>`;
+      
+      document.getElementById("results").innerHTML = resultsHTML;
+      
+      // Display calculation steps
+      let stepsHTML = `
+        <h3>Calculation Steps</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>Conductance Matrix (G):</strong>
+            <table class="node-matrix">
+              ${G.map(row => `
+                <tr>
+                  ${row.map(val => `<td>${val.toExponential(3)}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Current Vector (I):</strong>
+            <table class="node-matrix">
+              <tr>
+                ${I.map(val => `<td>${val.toExponential(3)} A</td>`).join('')}
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Solved Linear System:</strong>
+            <div class="equation">${G.map((row, i) => 
+              row.map((g, j) => `${g.toExponential(2)}V<sub>${j+1}</sub>`).join(' + ') + ` = ${I[i].toExponential(2)}`
+            ).join('<br>')}</div>
+          </div>
+        </div>
+      `;
+      
+      document.getElementById("steps").innerHTML = stepsHTML;
+    }
+
+    function resetFields() {
+      document.getElementById("node-count").value = 2;
+      updateNodeInputs();
+      document.getElementById("results").innerHTML = '';
+      document.getElementById("steps").innerHTML = '';
+    }
+  </script>
+</body>
+</html>

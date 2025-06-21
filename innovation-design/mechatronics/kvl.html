@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <title>Kirchhoff's Voltage Law Calculator</title>
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
+      color: var(--dark);
+      line-height: 1.6;
+      padding: 0px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+
+    .instructions {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 15px;
+      margin: 15px;
+      border-radius: var(--border-radius);
+      border-left: 4px solid var(--accent);
+    }
+
+    .calculator {
+      padding: 20px;
+    }
+
+    .input-section {
+      margin-bottom: 20px;
+    }
+
+    .input-field {
+      margin-bottom: 15px;
+    }
+
+    .input-field label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .input-field input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .input-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+    }
+
+    .voltage-drop-grid {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .voltage-drop-label {
+      font-weight: 600;
+      min-width: 120px;
+    }
+
+    .voltage-drop-input {
+      padding: 12px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background-color: #e9ecef;
+      color: var(--dark);
+    }
+
+    .btn-secondary:hover {
+      background-color: #dee2e6;
+      transform: translateY(-2px);
+    }
+
+    .results {
+      background-color: var(--light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .results h2 {
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: 1.3rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .result-item {
+      background: white;
+      padding: 15px;
+      border-radius: var(--border-radius);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .result-item .value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .result-item .label {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+
+    .success {
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(76, 201, 240, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    .error {
+      color: var(--error);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(247, 37, 133, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    .steps {
+      background: rgba(72, 149, 239, 0.1);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      margin-top: 20px;
+    }
+
+    .steps h3 {
+      color: var(--secondary);
+      margin-bottom: 15px;
+      font-size: 1.1rem;
+    }
+
+    .step {
+      margin-bottom: 10px;
+      padding-left: 25px;
+      position: relative;
+    }
+
+    .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: var(--accent);
+      color: white;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    .step-content {
+      margin-left: 5px;
+    }
+
+    .voltage-list {
+      margin: 10px 0;
+      padding-left: 20px;
+    }
+
+    .voltage-list li {
+      margin-bottom: 5px;
+    }
+
+    .equation {
+      font-family: monospace;
+      background: rgba(0, 0, 0, 0.05);
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 5px 0;
+    }
+
+    @media (max-width: 600px) {
+      .button-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+<nav>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a href="../../misc./index.html">Misc.</a></li>
+  </ul>
+</nav>
+
+<div class="containerb">
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt; 
+    <a href="../index.html">Science of Innovation & Design</a> &gt; 
+    <a href="index.html">Mechatronics</a> &gt;
+    KVL Calculator
+  </div>
+
+  <div class="container">
+    <header>
+      <h1>Kirchhoff's Voltage Law Calculator</h1>
+      <p class="subtitle">Verify KVL in any closed loop circuit</p>
+    </header>
+
+    <div class="instructions">
+      <p>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <strong>KVL states:</strong> The sum of all voltage drops equals the source voltage in any closed loop.
+      </p>
+    </div>
+
+    <div class="calculator">
+      <div class="input-section">
+        <div class="input-field">
+          <label for="sourceVoltage">Source Voltage (V)</label>
+          <input type="number" id="sourceVoltage" step="any" placeholder="Enter source voltage">
+        </div>
+
+        <h3>Voltage Drops</h3>
+        <div id="voltageDropsContainer">
+          <!-- Voltage drops will be added here -->
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" onclick="addVoltageDrop()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add Drop
+        </button>
+        <button class="btn-primary" onclick="checkKVL()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          Check KVL
+        </button>
+        <button class="btn-secondary" onclick="resetFields()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+          </svg>
+          Reset
+        </button>
+      </div>
+
+      <div class="results" id="results"></div>
+      <div class="steps" id="steps"></div>
+    </div>
+  </div>
+
+  <script>
+    // Function to add a new voltage drop input field
+    function addVoltageDrop() {
+      const container = document.getElementById("voltageDropsContainer");
+      const index = container.children.length + 1;
+      
+      const dropRow = document.createElement('div');
+      dropRow.className = 'voltage-drop-grid';
+      dropRow.innerHTML = `
+        <span class="voltage-drop-label">Voltage Drop ${index} (V)</span>
+        <input type="number" step="any" class="voltageDropInput" placeholder="Enter voltage drop">
+      `;
+      
+      container.appendChild(dropRow);
+      
+      // Focus the new input field for better UX
+      dropRow.querySelector('input').focus();
+    }
+
+    // Function to check Kirchhoff's Voltage Law
+    function checkKVL() {
+      const source = parseFloat(document.getElementById("sourceVoltage").value);
+      const drops = Array.from(document.getElementsByClassName("voltageDropInput"))
+        .map(input => parseFloat(input.value))
+        .filter(val => !isNaN(val));
+
+      // Validate inputs
+      if (isNaN(source)) {
+        document.getElementById("results").innerHTML = `
+          <div class="error">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Please enter the source voltage
+          </div>
+        `;
+        document.getElementById("steps").innerHTML = '';
+        return;
+      }
+
+      if (drops.length === 0) {
+        document.getElementById("results").innerHTML = `
+          <div class="error">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            Please add at least one voltage drop
+          </div>
+        `;
+        document.getElementById("steps").innerHTML = '';
+        return;
+      }
+
+      const totalDrop = drops.reduce((a, b) => a + b, 0);
+      const diff = source - totalDrop;
+      const isSatisfied = Math.abs(diff) < 0.01;
+
+      // Generate step-by-step solution
+      generateSteps(source, drops, totalDrop, diff, isSatisfied);
+
+      // Display results
+      document.getElementById("results").innerHTML = `
+        <h2>Results</h2>
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="value">${source.toFixed(2)}</div>
+            <div class="label">Source Voltage</div>
+          </div>
+          <div class="result-item">
+            <div class="value">${totalDrop.toFixed(2)}</div>
+            <div class="label">Total Drops</div>
+          </div>
+          <div class="result-item">
+            <div class="value">${diff.toFixed(2)}</div>
+            <div class="label">Difference</div>
+          </div>
+        </div>
+        ${
+          isSatisfied 
+            ? `
+              <div class="success">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                KVL is satisfied (ΣVdrops ≈ Vsource)
+              </div>
+            `
+            : `
+              <div class="error">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="15" y1="9" x2="9" y2="15"></line>
+                  <line x1="9" y1="9" x2="15" y2="15"></line>
+                </svg>
+                KVL is NOT satisfied (Difference = ${diff.toFixed(2)} V)
+              </div>
+            `
+        }
+      `;
+    }
+
+    function generateSteps(source, drops, totalDrop, diff, isSatisfied) {
+      const stepsDiv = document.getElementById("steps");
+      stepsDiv.innerHTML = `
+        <h3>Step-by-Step Solution</h3>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <strong>List all voltage values:</strong>
+            <ul class="voltage-list">
+              <li>Source Voltage (V<sub>source</sub>) = ${source.toFixed(2)} V</li>
+              ${drops.map((drop, i) => 
+                `<li>Voltage Drop ${i+1} (V<sub>${i+1}</sub>) = ${drop.toFixed(2)} V</li>`
+              ).join('')}
+            </ul>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <strong>Apply Kirchhoff's Voltage Law:</strong>
+            <p>V<sub>source</sub> = ΣV<sub>drops</sub></p>
+            <p>Or equivalently: V<sub>source</sub> - ΣV<sub>drops</sub> = 0</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <strong>Calculate the sum of voltage drops:</strong>
+            <div class="equation">
+              ΣV<sub>drops</sub> = ${drops.map(drop => drop.toFixed(2)).join(' + ')} = ${totalDrop.toFixed(2)} V
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <strong>Calculate the difference:</strong>
+            <div class="equation">
+              V<sub>source</sub> - ΣV<sub>drops</sub> = ${source.toFixed(2)} - ${totalDrop.toFixed(2)} = ${diff.toFixed(2)} V
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <div class="step-content">
+            <strong>Verify KVL:</strong>
+            <p>${isSatisfied ? 
+              `|${diff.toFixed(2)}| ≈ 0 → KVL is satisfied` : 
+              `|${diff.toFixed(2)}| ≠ 0 → KVL is not satisfied`
+            }</p>
+            <p>${isSatisfied ? 
+              'The sum of voltage drops equals the source voltage in this closed loop.' : 
+              'There is a discrepancy in voltage measurements. Check your circuit connections and measurements.'
+            }</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function resetFields() {
+      document.getElementById("sourceVoltage").value = '';
+      document.getElementById("voltageDropsContainer").innerHTML = '';
+      document.getElementById("results").innerHTML = '';
+      document.getElementById("steps").innerHTML = '';
+    }
+
+    // Allow pressing Enter in input fields to check KVL
+    document.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkKVL();
+      }
+    });
+
+    // Add first voltage drop by default for better UX
+    window.onload = function() {
+      addVoltageDrop();
+    };
+  </script>
+</body>
+</html>
