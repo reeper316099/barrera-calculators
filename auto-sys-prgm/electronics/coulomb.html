@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coulomb's Law Calculator | Barrera Calculators</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    :root {
+        --primary: #4361ee;
+      --secondary: #3a0ca3;
+      --accent: #4895ef;
+      --success: #4cc9f0;
+      --error: #f72585;
+      --light: #f8f9fa;
+      --dark: #212529;
+      --border-radius: 8px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f6ff;
+      color: var(--dark);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--primary);
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+    }
+
+    .btn {
+      margin-top: 2rem;
+      width: 100%;
+      padding: 0.9rem;
+      background: var(--accent);
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+
+    .btn:hover {
+      background: var(--secondary);
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: var(--secondary);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <h1>Barrera Calculators</h1>
+      </header>
+    
+    <nav>
+      <ul>
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+        <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+        <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
+        <li><a href="../../misc./index.html">Misc.</a></li>
+      </ul>
+    </nav>
+    
+    <div class="containerb">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> &gt; 
+        <a href="../index.html">Engineering & Auto Systems Programming</a> &gt; 
+        <a href="index.html">Electronics</a> &gt;
+        Coulomb's Law Calculator
+    </div>
+  <div class="container">
+    <h1>Coulomb's Law Calculator</h1>
+    <form id="coulombForm">
+      <label for="q1">Charge 1 (Q₁) in Coulombs:</label>
+      <input type="number" id="q1" required step="any" />
+
+      <label for="q2">Charge 2 (Q₂) in Coulombs:</label>
+      <input type="number" id="q2" required step="any" />
+
+      <label for="r">Distance (r) in meters:</label>
+      <input type="number" id="r" required step="any" min="0.00001" />
+
+      <button type="submit" class="btn">Calculate Force</button>
+    </form>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    document.getElementById('coulombForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const q1 = parseFloat(document.getElementById('q1').value);
+      const q2 = parseFloat(document.getElementById('q2').value);
+      const r = parseFloat(document.getElementById('r').value);
+
+      const k = 8.99e9; // Coulomb's constant
+
+      if (isNaN(q1) || isNaN(q2) || isNaN(r) || r <= 0) {
+        document.getElementById('result').innerText = "Please enter valid values.";
+        return;
+      }
+
+      const force = k * Math.abs(q1 * q2) / (r * r);
+      document.getElementById('result').innerText = `Force: ${force.toExponential(3)} N`;
+    });
+  </script>
+</body>
+</html>
