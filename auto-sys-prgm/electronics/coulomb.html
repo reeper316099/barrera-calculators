@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../assets/css/style.css">
   <style>
     :root {
-        --primary: #4361ee;
+      --primary: #4361ee;
       --secondary: #3a0ca3;
       --accent: #4895ef;
       --success: #4cc9f0;
@@ -27,9 +27,43 @@
       padding: 0;
     }
 
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: var(--box-shadow);
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 1rem;
+      margin: 0;
+      background: white;
+      box-shadow: var(--box-shadow);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      transition: var(--transition);
+    }
+
+    nav a:hover, nav a.active {
+      color: white;
+      background: var(--primary);
+    }
+
     .container {
       max-width: 700px;
-      margin: 4rem auto;
+      margin: 3rem auto;
       padding: 2rem;
       background: white;
       border-radius: var(--border-radius);
@@ -83,30 +117,64 @@
       color: var(--secondary);
       text-align: center;
     }
+
+    .steps {
+      margin-top: 2rem;
+      background: #f0f4ff;
+      border-left: 5px solid var(--accent);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      color: #333;
+      line-height: 1.6;
+      box-shadow: var(--box-shadow);
+    }
+
+    .steps strong {
+      color: var(--primary);
+    }
+
+    .breadcrumb {
+      font-size: 0.9rem;
+      margin: 0 auto 2rem;
+      max-width: 700px;
+      padding: 0 1.5rem;
+      color: #555;
+    }
+
+    .breadcrumb a {
+      text-decoration: none;
+      color: var(--accent);
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+      color: var(--secondary);
+    }
   </style>
 </head>
 <body>
-    <header>
-        <h1>Barrera Calculators</h1>
-      </header>
-    
-    <nav>
-      <ul>
-        <li><a href="../../index.html">Home</a></li>
-        <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-        <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-        <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-        <li><a href="../../misc./index.html">Misc.</a></li>
-      </ul>
-    </nav>
-    
-    <div class="containerb">
-      <div class="breadcrumb">
-        <a href="../../index.html">Home</a> &gt; 
-        <a href="../index.html">Engineering & Auto Systems Programming</a> &gt; 
-        <a href="index.html">Electronics</a> &gt;
-        Coulomb's Law Calculator
-    </div>
+  <header>
+    <h1>Barrera Calculators</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+      <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+      <li><a href="../../auto-sys-prgm/index.html" class="active">Engineering & Auto Systems Programming</a></li>
+      <li><a href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt;
+    <a href="../index.html">Engineering & Auto Systems Programming</a> &gt;
+    <a href="index.html">Electronics</a> &gt;
+    Coulomb's Law Calculator
+  </div>
+
   <div class="container">
     <h1>Coulomb's Law Calculator</h1>
     <form id="coulombForm">
@@ -122,25 +190,53 @@
       <button type="submit" class="btn">Calculate Force</button>
     </form>
     <div id="result" class="result"></div>
+    <div id="steps" class="steps" style="display: none;"></div>
   </div>
 
   <script>
     document.getElementById('coulombForm').addEventListener('submit', function (e) {
       e.preventDefault();
+
       const q1 = parseFloat(document.getElementById('q1').value);
       const q2 = parseFloat(document.getElementById('q2').value);
       const r = parseFloat(document.getElementById('r').value);
+      const k = 8.99e9;
 
-      const k = 8.99e9; // Coulomb's constant
+      const resultDiv = document.getElementById('result');
+      const stepsDiv = document.getElementById('steps');
 
       if (isNaN(q1) || isNaN(q2) || isNaN(r) || r <= 0) {
-        document.getElementById('result').innerText = "Please enter valid values.";
+        resultDiv.innerText = "Please enter valid values.";
+        stepsDiv.style.display = "none";
         return;
       }
 
-      const force = k * Math.abs(q1 * q2) / (r * r);
-      document.getElementById('result').innerText = `Force: ${force.toExponential(3)} N`;
+      const product = Math.abs(q1 * q2);
+      const rSquared = r * r;
+      const numerator = k * product;
+      const force = numerator / rSquared;
+
+      resultDiv.innerText = `Force: ${force.toExponential(3)} N`;
+
+      stepsDiv.style.display = "block";
+      stepsDiv.innerHTML = `
+        <strong>Step-by-step solution:</strong><br><br>
+        <strong>1. Formula:</strong><br>
+        F = k × |Q₁ × Q₂| / r²<br><br>
+
+        <strong>2. Substitute values:</strong><br>
+        F = (8.99 × 10⁹) × |${q1} × ${q2}| / (${r}²)<br><br>
+
+        <strong>3. Calculate intermediate steps:</strong><br>
+        |Q₁ × Q₂| = ${product}<br>
+        r² = ${r}² = ${rSquared}<br>
+        Numerator = 8.99 × 10⁹ × ${product} = ${numerator.toExponential(3)}<br><br>
+
+        <strong>4. Final Calculation:</strong><br>
+        F = ${numerator.toExponential(3)} / ${rSquared} = <strong>${force.toExponential(3)} N</strong>
+      `;
     });
   </script>
 </body>
 </html>
+
