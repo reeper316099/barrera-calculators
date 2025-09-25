@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resistor Color Code Calculator | Barrera Calculators</title>
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    :root{
+      --primary:#4361ee;--secondary:#3a0ca3;--accent:#4895ef;--light:#f8f9fa;--dark:#212529;
+      --radius:12px;--shadow:0 4px 20px rgba(0,0,0,.08);--transition:all .25s ease;
+    }
+    body{background:#f5f6ff;color:var(--dark);margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;}
+    header.page {background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;text-align:center;padding:2rem 1rem;}
+    nav ul{display:flex;justify-content:center;gap:.75rem;list-style:none;margin:0;padding:1rem;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    nav a{text-decoration:none;color:var(--dark);padding:.5rem 1rem;border-radius:999px;font-weight:600}
+    nav a:hover,nav a.active{background:var(--primary);color:#fff}
+    .breadcrumb{max-width:1050px;margin:1rem auto 0;padding:0 1.25rem;color:#6c757d;font-size:.95rem}
+    .breadcrumb a{color:var(--primary);text-decoration:none}
+    .breadcrumb a:hover{text-decoration:underline}
+
+    .wrap{max-width:1050px;margin:1.25rem auto 2rem;padding:0 1.25rem}
+    .card{background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);padding:1.25rem}
+    h1.title{margin:.25rem 0 0;font-size:1.8rem}
+    p.subtitle{margin:.25rem 0 0;opacity:.9}
+
+    .controls{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem}
+    .row{display:grid;grid-template-columns:repeat(12,1fr);gap:1rem;align-items:end}
+    .col-4{grid-column:span 4}
+    .col-6{grid-column:span 6}
+    .col-12{grid-column:span 12}
+    @media (max-width:760px){.row{grid-template-columns:1fr}.col-4,.col-6,.col-12{grid-column:1}}
+
+    label{font-weight:600;margin-bottom:.35rem;display:block}
+    select,button{width:100%;padding:.7rem .9rem;border:1px solid #dfe3ea;border-radius:10px;font-size:.95rem}
+    select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(72,149,239,.15)}
+    .band-type{display:flex;gap:.5rem;flex-wrap:wrap}
+    .band-type input{display:none}
+    .band-type label{
+        border:1px solid #dfe3ea;
+        border-radius:999px;
+        padding:.45rem .9rem;
+        cursor:pointer;
+        -ms-user-select:none;
+        -webkit-user-select:none;   /* Safari/iOS fix */
+        -moz-user-select:none;      /* Older Firefox */
+        user-select:none;       /* Older IE/Edge */
+
+      transition:var(--transition);font-weight:700;background:#fff
+    }
+    .band-type input:checked + label{background:var(--primary);color:#fff;border-color:transparent;box-shadow:0 6px 14px rgba(67,97,238,.2)}
+
+    .canvas-wrap{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1rem}
+    canvas{width:100%;height:140px;background:#fff;border:1px solid #e9ecef;border-radius:10px}
+    .btn{background:var(--accent);color:#fff;border:none;border-radius:999px;cursor:pointer;font-weight:800}
+    .btn:hover{background:var(--secondary);transform:translateY(-1px)}
+
+    .result{margin-top:1rem;background:#f0f4ff;border-left:5px solid var(--accent);padding:1rem;border-radius:10px}
+    .result .big{font-weight:800;font-size:1.15rem;color:var(--secondary)}
+    .steps{margin-top:1rem;background:#f8fbff;border:1px solid #e6edff;border-radius:10px;padding:1rem}
+    .steps h3{margin:.25rem 0 1rem;color:var(--secondary)}
+    .step{margin:.35rem 0}
+    .chip{display:inline-block;border-radius:999px;padding:.25rem .6rem;background:#eef3ff;border:1px solid #dfe6ff;margin:.15rem .3rem .15rem 0}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,'Liberation Mono','Courier New',monospace;
+      background:#eef3ff;border-radius:6px;padding:.1rem .35rem}
+
+    .legend{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.6rem}
+    .swatch{display:inline-flex;align-items:center;gap:.4rem;border:1px solid #eaeaea;border-radius:8px;padding:.2rem .45rem;background:#fff}
+    .dot{width:14px;height:14px;border-radius:50%}
+
+    .muted{color:#6c757d;font-size:.95rem}
+  </style>
+</head>
+<body>
+
+  <header class="page">
+    <h1>Barrera Calculators</h1>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+      <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+      <li><a href="../../auto-sys-prgm/index.html" class="active">Engineering & Auto Systems Programming</a></li>
+      <li><a href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
+
+  <div class="breadcrumb">
+    <a href="../../index.html">Home</a> &gt;
+    <a href="../index.html">Engineering & Auto Systems Programming</a> &gt;
+    <a href="index.html">Electronics</a> &gt;
+    Resistor Color Code
+  </div>
+
+  <div class="wrap">
+    <div class="card">
+      <h1 class="title">Resistor Color Code Calculator</h1>
+      <p class="subtitle">Pick band colors to decode resistance, tolerance, and (6-band) temperature coefficient.</p>
+
+      <div class="controls">
+        <!-- Band count toggle -->
+        <div class="row">
+          <div class="col-12">
+            <label>Band Type</label>
+            <div class="band-type" id="bandTypeGroup">
+              <input type="radio" id="b4" name="bandtype" value="4" checked>
+              <label for="b4">4-Band</label>
+              <input type="radio" id="b5" name="bandtype" value="5">
+              <label for="b5">5-Band</label>
+              <input type="radio" id="b6" name="bandtype" value="6">
+              <label for="b6">6-Band</label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic selectors -->
+        <div id="selectors" class="row"></div>
+
+        <!-- Visual + action -->
+        <div class="row">
+          <div class="col-12 canvas-wrap">
+            <canvas id="resCanvas" width="760" height="140"></canvas>
+          </div>
+          <div class="col-12">
+            <button class="btn" id="calcBtn">Calculate</button>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div id="result" class="result" style="display:none"></div>
+        <div id="steps" class="steps" style="display:none"></div>
+
+        <!-- Small legend -->
+        <div class="legend muted" id="legend"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Data ---
+    const COLORS = {
+      black:  { value:0, multiplier:1,      color:"#000000" },
+      brown:  { value:1, multiplier:10,     tolerance:1,    tempco:100, color:"#8B4513" },
+      red:    { value:2, multiplier:100,    tolerance:2,    tempco:50,  color:"#FF0000" },
+      orange: { value:3, multiplier:1e3,    tempco:15,      color:"#FFA500" },
+      yellow: { value:4, multiplier:1e4,    tempco:25,      color:"#FFFF00" },
+      green:  { value:5, multiplier:1e5,    tolerance:0.5,  color:"#008000" },
+      blue:   { value:6, multiplier:1e6,    tolerance:0.25, tempco:10,  color:"#0000FF" },
+      violet: { value:7, multiplier:1e7,    tolerance:0.1,  tempco:5,   color:"#8A2BE2" },
+      gray:   { value:8, multiplier:1e8,    tolerance:0.05, tempco:1,   color:"#808080" },
+      white:  { value:9, multiplier:1e9,    color:"#FFFFFF",  border:"#dfe3ea" },
+      gold:   { multiplier:0.1, tolerance:5, color:"#FFD700" },
+      silver: { multiplier:0.01, tolerance:10, color:"#C0C0C0" }
+    };
+
+    const SIG_COLORS = ["black","brown","red","orange","yellow","green","blue","violet","gray","white"];
+    const MULT_COLORS = ["black","brown","red","orange","yellow","green","blue","violet","gray","white","gold","silver"];
+    const TOL_COLORS  = ["brown","red","green","blue","violet","gray","gold","silver"];
+    const TC_COLORS   = ["brown","red","orange","yellow","blue","violet","gray"];
+
+    // --- Helpers ---
+    const $ = sel => document.querySelector(sel);
+    const $$ = sel => Array.from(document.querySelectorAll(sel));
+
+    function formatOhms(ohms){
+      if (ohms === 0) return "0 Ω";
+      const abs = Math.abs(ohms);
+      if (abs >= 1e9)  return (ohms/1e9).toLocaleString(undefined,{maximumSignificantDigits:3})+" GΩ";
+      if (abs >= 1e6)  return (ohms/1e6).toLocaleString(undefined,{maximumSignificantDigits:3})+" MΩ";
+      if (abs >= 1e3)  return (ohms/1e3).toLocaleString(undefined,{maximumSignificantDigits:3})+" kΩ";
+      return ohms.toLocaleString(undefined,{maximumSignificantDigits:4})+" Ω";
+    }
+
+    function makeSelect(id, label, options){
+      const wrap = document.createElement("div");
+      wrap.className = "col-4";
+      wrap.innerHTML = `<label for="${id}">${label}</label>`;
+      const sel = document.createElement("select");
+      sel.id = id;
+      options.forEach(name=>{
+        const opt = document.createElement("option");
+        opt.value = name;
+        opt.textContent = name.charAt(0).toUpperCase()+name.slice(1);
+        opt.style.backgroundColor = COLORS[name].color;
+        if (COLORS[name].border) opt.style.border = "1px solid "+COLORS[name].border;
+        wrap.appendChild(sel);
+        sel.appendChild(opt);
+      });
+      return wrap;
+    }
+
+    function buildSelectors(bands){
+      const container = $("#selectors");
+      container.innerHTML = "";
+      if (bands === 4){
+        container.appendChild(makeSelect("b1","Band 1 (tens)", SIG_COLORS));
+        container.appendChild(makeSelect("b2","Band 2 (ones)", SIG_COLORS));
+        container.appendChild(makeSelect("mul","Multiplier", MULT_COLORS));
+        container.appendChild(makeSelect("tol","Tolerance", TOL_COLORS));
+      } else if (bands === 5 || bands === 6){
+        container.appendChild(makeSelect("b1","Band 1 (hundreds)", SIG_COLORS));
+        container.appendChild(makeSelect("b2","Band 2 (tens)",     SIG_COLORS));
+        container.appendChild(makeSelect("b3","Band 3 (ones)",     SIG_COLORS));
+        container.appendChild(makeSelect("mul","Multiplier", MULT_COLORS));
+        container.appendChild(makeSelect("tol","Tolerance", TOL_COLORS));
+        if (bands === 6){
+          container.appendChild(makeSelect("tc","Temp. Coeff (ppm/K)", TC_COLORS));
+        }
+      }
+    }
+
+    function drawResistor(bands, values){
+      const c = $("#resCanvas"); const ctx = c.getContext("2d");
+      ctx.clearRect(0,0,c.width,c.height);
+
+      // leads
+      ctx.strokeStyle="#9aa0a6"; ctx.lineWidth=6;
+      ctx.beginPath(); ctx.moveTo(40,70); ctx.lineTo(180,70); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(580,70); ctx.lineTo(720,70); ctx.stroke();
+
+      // body
+      ctx.fillStyle="#f0de9c"; // beige
+      ctx.strokeStyle="#bcae7a";
+      ctx.lineWidth=2;
+      const bx=180, by=35, bw=400, bh=70;
+      ctx.fillRect(bx,by,bw,bh);
+      ctx.strokeRect(bx,by,bw,bh);
+
+      // band positions depending on count
+      const slots = {4:[220,300,380,500], 5:[210,270,330,420,510], 6:[200,260,320,410,500,560]}[bands];
+
+      const ids = bands===4? ["b1","b2","mul","tol"]
+                 : bands===5? ["b1","b2","b3","mul","tol"]
+                 : ["b1","b2","b3","mul","tol","tc"];
+
+      ids.forEach((id, i)=>{
+        const name = values[id];
+        const col = COLORS[name]?.color || "#000";
+        ctx.fillStyle = col;
+        ctx.fillRect(slots[i]-6, by, 12, bh);
+        // glossy highlight
+        ctx.fillStyle = "rgba(255,255,255,.25)";
+        ctx.fillRect(slots[i]-6, by, 12, 18);
+      });
+    }
+
+    function calculate(bands){
+      // Collect chosen colors
+      const get = id => $("#"+id)?.value;
+      const vals = {};
+      if (bands===4){ ["b1","b2","mul","tol"].forEach(k=>vals[k]=get(k)); }
+      if (bands===5){ ["b1","b2","b3","mul","tol"].forEach(k=>vals[k]=get(k)); }
+      if (bands===6){ ["b1","b2","b3","mul","tol","tc"].forEach(k=>vals[k]=get(k)); }
+
+      // Digits
+      let significant = "";
+      if (bands===4){ significant = ""+COLORS[vals.b1].value+COLORS[vals.b2].value; }
+      else { significant = ""+COLORS[vals.b1].value+COLORS[vals.b2].value+COLORS[vals.b3].value; }
+
+      const multiplier = COLORS[vals.mul].multiplier ?? 1;
+      const tolerance  = COLORS[vals.tol].tolerance ?? null;
+      const tempco     = bands===6 ? (COLORS[vals.tc].tempco ?? null) : null;
+
+      const nominal = parseInt(significant,10) * multiplier;
+      const min = tolerance!=null ? nominal*(1 - tolerance/100) : null;
+      const max = tolerance!=null ? nominal*(1 + tolerance/100) : null;
+
+      // Result UI
+      const res = $("#result");
+      res.style.display = "block";
+      res.innerHTML = `
+        <div class="big">Value: ${formatOhms(nominal)}</div>
+        <div>${tolerance!=null ? `Tolerance: <span class="mono">±${tolerance}%</span>` : `<span class="muted">No tolerance band selected</span>`}</div>
+        ${ (min!=null && max!=null) ? `<div>Range: <span class="mono">${formatOhms(min)}</span> – <span class="mono">${formatOhms(max)}</span></div>` : ``}
+        ${ tempco!=null ? `<div>Temp. Coefficient: <span class="mono">${tempco} ppm/K</span></div>` : ``}
+      `;
+
+      // Steps
+      const steps = $("#steps");
+      steps.style.display = "block";
+      const digitChips = significant.split("").map((d,i)=>`<span class="chip">Digit ${i+1}: ${d}</span>`).join("");
+      steps.innerHTML = `
+        <h3>Step-by-Step</h3>
+        <div class="step"><strong>Digits:</strong> ${digitChips}</div>
+        <div class="step"><strong>Multiplier:</strong> <span class="mono">${COLORS[vals.mul].multiplier}</span></div>
+        <div class="step"><strong>Nominal:</strong> <span class="mono">${significant}</span> × <span class="mono">${COLORS[vals.mul].multiplier}</span> = <span class="mono">${formatOhms(nominal)}</span></div>
+        ${ tolerance!=null ? `<div class="step"><strong>Range:</strong> ${formatOhms(nominal)} × (1 ± ${tolerance}%) ⇒ <span class="mono">${formatOhms(min)}</span> – <span class="mono">${formatOhms(max)}</span></div>` : ``}
+        ${ tempco!=null ? `<div class="step"><strong>Tempco:</strong> <span class="mono">${tempco} ppm/K</span> (6-band only)</div>` : ``}
+      `;
+
+      // Draw
+      drawResistor(bands, vals);
+    }
+
+    function buildLegend(){
+      const lg = $("#legend");
+      lg.innerHTML = Object.keys(COLORS).map(n=>`
+        <span class="swatch">
+          <span class="dot" style="background:${COLORS[n].color};${COLORS[n].border?`border:1px solid ${COLORS[n].border}`:''}"></span>
+          ${n[0].toUpperCase()+n.slice(1)}
+        </span>`).join("");
+    }
+
+    // --- Init ---
+    function currentBands(){
+      return parseInt(document.querySelector('input[name="bandtype"]:checked').value,10);
+    }
+
+    function init(){
+      buildSelectors(currentBands());
+      buildLegend();
+      drawResistor(4,{b1:"brown",b2:"black",mul:"red",tol:"gold"}); // initial
+      $("#calcBtn").addEventListener("click", ()=>calculate(currentBands()));
+      $("#bandTypeGroup").addEventListener("change", ()=>{
+        buildSelectors(currentBands());
+        // redraw empty bands
+        const b = currentBands();
+        const placeholder = b===4? {b1:"brown",b2:"black",mul:"red",tol:"gold"}
+                          : b===5? {b1:"brown",b2:"black",b3:"red",mul:"orange",tol:"gold"}
+                                 : {b1:"brown",b2:"black",b3:"red",mul:"orange",tol:"gold",tc:"brown"};
+        drawResistor(b, placeholder);
+        $("#result").style.display="none";
+        $("#steps").style.display="none";
+      });
+    }
+    init();
+  </script>
+</body>
+</html>
