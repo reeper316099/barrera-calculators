@@ -1,200 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coulomb's Law Calculator | Barrera Calculators</title>
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <style>
-    :root {
-      --primary: #4361ee;
-      --secondary: #3a0ca3;
-      --accent: #4895ef;
-      --success: #4cc9f0;
-      --error: #f72585;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --border-radius: 8px;
-      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f5f6ff;
-      color: var(--dark);
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-      box-shadow: var(--box-shadow);
-    }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 1rem;
-      margin: 0;
-      background: white;
-      box-shadow: var(--box-shadow);
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 500;
-      padding: 0.5rem 1.2rem;
-      border-radius: 50px;
-      transition: var(--transition);
-    }
-
-    nav a:hover, nav a.active {
-      color: white;
-      background: var(--primary);
-    }
-
-    .container {
-      max-width: 700px;
-      margin: 3rem auto;
-      padding: 2rem;
-      background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-    }
-
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
-      text-align: center;
-      color: var(--primary);
-    }
-
-    label {
-      display: block;
-      margin-top: 1rem;
-      font-weight: 500;
-    }
-
-    input[type="number"] {
-      width: 100%;
-      padding: 0.8rem;
-      margin-top: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-    }
-
-    .btn {
-      margin-top: 2rem;
-      width: 100%;
-      padding: 0.9rem;
-      background: var(--accent);
-      color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .btn:hover {
-      background: var(--secondary);
-    }
-
-    .result {
-      margin-top: 2rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: var(--secondary);
-      text-align: center;
-    }
-
-    .steps {
-      margin-top: 2rem;
-      background: #f0f4ff;
-      border-left: 5px solid var(--accent);
-      padding: 1.5rem;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      color: #333;
-      line-height: 1.6;
-      box-shadow: var(--box-shadow);
-    }
-
-    .steps strong {
-      color: var(--primary);
-    }
-
-    .breadcrumb {
-      font-size: 0.9rem;
-      margin: 0 auto 2rem;
-      max-width: 700px;
-      padding: 0 1.5rem;
-      color: #555;
-    }
-
-    .breadcrumb a {
-      text-decoration: none;
-      color: var(--accent);
-    }
-
-    .breadcrumb a:hover {
-      text-decoration: underline;
-      color: var(--secondary);
-    }
-  </style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Coulomb's Law Calculator | Barrera Calculators</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Rajdhani:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
 </head>
-<body>
-  <header>
-    <h1>Barrera Calculators</h1>
+<body class="theme-electronics">
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Circuit Intelligence for <span>Automation Teams</span></p>
+    </div>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-      <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-      <li><a href="../../auto-sys-prgm/index.html" class="active">Engineering & Auto Systems Programming</a></li>
-      <li><a href="../../misc./index.html">Misc.</a></li>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+      <li><a class="site-nav__link" href="../../innovation-design/index.html">Science of Innovation &amp; Design</a></li>
+      <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture &amp; Engineering</a></li>
+      <li><a class="site-nav__link is-active" href="../index.html">Engineering &amp; Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
     </ul>
   </nav>
 
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt;
-    <a href="../index.html">Engineering & Auto Systems Programming</a> &gt;
-    <a href="index.html">Electronics</a> &gt;
-    Coulomb's Law Calculator
-  </div>
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="breadcrumb">
+        <a href="../../index.html">Home</a> &gt;
+            <a href="../index.html">Engineering &amp; Auto Systems Programming</a> &gt;
+            <a href="index.html">Electronics</a> &gt;
+            Coulomb's Law Calculator
+          </div>
+        <div class="calculator-shell">
+          <header class="module-header"><h1>Coulomb's Law Calculator</h1></header>
+          <form id="coulombForm">
+          <label for="q1">Charge 1 (Q₁) in Coulombs:</label>
+          <input id="q1" required="" step="any" type="number"/>
+          <label for="q2">Charge 2 (Q₂) in Coulombs:</label>
+          <input id="q2" required="" step="any" type="number"/>
+          <label for="r">Distance (r) in meters:</label>
+          <input id="r" min="0.00001" required="" step="any" type="number"/>
+          <button class="btn-primary" type="submit">Calculate Force</button>
+          </form>
+          <div class="result" id="result"></div>
+          <div class="steps" id="steps" style="display: none;"></div>
+        </div>
+      </div>
+    </section>
+  </main>
 
-  <div class="container">
-    <h1>Coulomb's Law Calculator</h1>
-    <form id="coulombForm">
-      <label for="q1">Charge 1 (Q₁) in Coulombs:</label>
-      <input type="number" id="q1" required step="any" />
-
-      <label for="q2">Charge 2 (Q₂) in Coulombs:</label>
-      <input type="number" id="q2" required step="any" />
-
-      <label for="r">Distance (r) in meters:</label>
-      <input type="number" id="r" required step="any" min="0.00001" />
-
-      <button type="submit" class="btn">Calculate Force</button>
-    </form>
-    <div id="result" class="result"></div>
-    <div id="steps" class="steps" style="display: none;"></div>
-  </div>
-  
-  <footer>
-    <p>© Barrera Calculators</p>
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Electronics Workspace</p>
   </footer>
 
   <script>
@@ -210,7 +71,7 @@
       const stepsDiv = document.getElementById('steps');
 
       if (isNaN(q1) || isNaN(q2) || isNaN(r) || r <= 0) {
-        resultDiv.innerText = "Please enter valid values.";
+        resultDiv.innerHTML = '<div class="error">Please enter valid values.</div>';
         stepsDiv.style.display = "none";
         return;
       }
@@ -220,24 +81,21 @@
       const numerator = k * product;
       const force = numerator / rSquared;
 
-      resultDiv.innerText = `Force: ${force.toExponential(3)} N`;
+      resultDiv.innerHTML = `
+        <h2>Electrostatic Force</h2>
+        <div class="result-grid">
+          <div class="result-item">
+            <div class="result-value">${force.toExponential(3)}</div>
+            <div class="result-label">Force (N)</div>
+          </div>
+        </div>`;
 
       stepsDiv.style.display = "block";
       stepsDiv.innerHTML = `
-        <strong>Step-by-step solution:</strong><br><br>
-        <strong>1. Formula:</strong><br>
-        F = k × |Q₁ × Q₂| / r²<br><br>
-
-        <strong>2. Substitute values:</strong><br>
-        F = (8.99 × 10⁹) × |${q1} × ${q2}| / (${r}²)<br><br>
-
-        <strong>3. Calculate intermediate steps:</strong><br>
-        |Q₁ × Q₂| = ${product}<br>
-        r² = ${r}² = ${rSquared}<br>
-        Numerator = 8.99 × 10⁹ × ${product} = ${numerator.toExponential(3)}<br><br>
-
-        <strong>4. Final Calculation:</strong><br>
-        F = ${numerator.toExponential(3)} / ${rSquared} = <strong>${force.toExponential(3)} N</strong>
+        <div class="step">Formula: F = k × |Q₁ × Q₂| / r²</div>
+        <div class="step">Substitute: F = (8.99 × 10⁹) × |${q1} × ${q2}| / (${r}²)</div>
+        <div class="step">Intermediate: |Q₁ × Q₂| = ${product}, r² = ${rSquared}, Numerator = ${numerator.toExponential(3)}</div>
+        <div class="step">Result: ${numerator.toExponential(3)} / ${rSquared} = ${force.toExponential(3)} N</div>
       `;
     });
   </script>

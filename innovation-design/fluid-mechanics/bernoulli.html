@@ -1,470 +1,132 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="../../assets/css/style.css">
-  <title>Bernoulli's Equation Calculator</title>
-  <style>
-    :root {
-      --primary: #4361ee;
-      --secondary: #3a0ca3;
-      --accent: #4895ef;
-      --success: #4cc9f0;
-      --error: #f72585;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --border-radius: 8px;
-      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      --transition: all 0.3s ease;
-    }
-
-
-
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5f7fa 0%, #e2e8f0 100%);
-      color: var(--dark);
-      line-height: 1.6;
-      padding: 0px;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      border-radius: var(--border-radius);
-      box-shadow: var(--box-shadow);
-      overflow: hidden;
-    }
-
-    header {
-      background: linear-gradient(to right, var(--primary), var(--secondary));
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      font-size: 1rem;
-      opacity: 0.9;
-    }
-
-    .instructions {
-      background: rgba(72, 149, 239, 0.1);
-      padding: 15px;
-      margin: 15px;
-      border-radius: var(--border-radius);
-      border-left: 4px solid var(--accent);
-    }
-
-    .calculator {
-      padding: 25px;
-    }
-
-    .input-section {
-      margin-bottom: 20px;
-      background: var(--light);
-      padding: 20px;
-      border-radius: var(--border-radius);
-    }
-
-    .input-section h3 {
-      color: var(--secondary);
-      margin-bottom: 15px;
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 5px;
-    }
-
-    .input-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
-
-    .input-field {
-      margin-bottom: 15px;
-    }
-
-    .input-field label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: var(--dark);
-    }
-
-    .input-field input {
-      width: 100%;
-      padding: 12px 15px;
-      border: 2px solid #e9ecef;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      transition: var(--transition);
-    }
-
-    .input-field input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-    }
-
-    .button-group {
-      display: flex;
-      gap: 15px;
-      margin: 25px 0;
-    }
-
-    button {
-      padding: 12px 20px;
-      border: none;
-      border-radius: var(--border-radius);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-primary {
-      background-color: var(--primary);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background-color: var(--secondary);
-      transform: translateY(-2px);
-    }
-
-    .btn-secondary {
-      background-color: #e9ecef;
-      color: var(--dark);
-    }
-
-    .btn-secondary:hover {
-      background-color: #dee2e6;
-      transform: translateY(-2px);
-    }
-
-    .results {
-      background-color: var(--light);
-      border-radius: var(--border-radius);
-      padding: 20px;
-      margin-top: 20px;
-      border-left: 4px solid var(--primary);
-    }
-
-    .results h2 {
-      color: var(--primary);
-      margin-bottom: 15px;
-      font-size: 1.3rem;
-    }
-
-    .result-item {
-      background: white;
-      padding: 15px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      margin-bottom: 15px;
-    }
-
-    .result-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 5px;
-    }
-
-    .result-label {
-      font-size: 0.9rem;
-      color: #6c757d;
-    }
-
-    .steps {
-      background: rgba(72, 149, 239, 0.1);
-      padding: 20px;
-      border-radius: var(--border-radius);
-      margin-top: 20px;
-    }
-
-    .steps h3 {
-      color: var(--secondary);
-      margin-bottom: 15px;
-      font-size: 1.1rem;
-    }
-
-    .step {
-      margin-bottom: 10px;
-      padding-left: 25px;
-      position: relative;
-    }
-
-    .step-number {
-      position: absolute;
-      left: 0;
-      top: 0;
-      background: var(--accent);
-      color: white;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      font-weight: bold;
-    }
-
-    .step-content {
-      margin-left: 5px;
-    }
-
-    .equation {
-      font-family: monospace;
-      background: rgba(0, 0, 0, 0.05);
-      padding: 8px 12px;
-      border-radius: 4px;
-      display: inline-block;
-      margin: 5px 0;
-      font-size: 1.1rem;
-    }
-
-    .bernoulli-equation {
-      font-family: serif;
-      font-size: 1.2rem;
-      text-align: center;
-      margin: 15px 0;
-      padding: 10px;
-      background: rgba(0, 0, 0, 0.03);
-      border-radius: var(--border-radius);
-    }
-
-    .error {
-      color: var(--error);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 600;
-      margin-top: 10px;
-      padding: 10px;
-      background: rgba(247, 37, 133, 0.1);
-      border-radius: var(--border-radius);
-    }
-
-    .equation-type {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .equation-type label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      padding: 10px 15px;
-      background: var(--light);
-      border-radius: var(--border-radius);
-      transition: var(--transition);
-    }
-
-    .equation-type input[type="radio"] {
-      margin: 0;
-      width: auto;
-    }
-
-    .equation-type label:hover {
-      background: #e9ecef;
-    }
-
-    .equation-type input:checked + label {
-      background: var(--accent);
-      color: white;
-    }
-
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 5rem 1rem;
-      text-align: center;
-      border-radius: var(--border-radius);
-      margin-bottom: 3rem;
-      box-shadow: var(--box-shadow);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .hero::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40px;
-      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f5f7ff" opacity=".25"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f5f7ff" opacity=".5"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f7ff"/></svg>');
-      background-size: cover;
-    }
-    
-    .hero h2 {
-      font-size: 2.8rem;
-      margin-bottom: 1rem;
-      position: relative;
-      z-index: 1;
-      font-weight: 700;
-    }
-    
-    .hero p {
-      font-size: 1.3rem;
-      opacity: 0.9;
-      max-width: 700px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-      font-weight: 300;
-    }
-
-    @media (max-width: 600px) {
-      .button-group {
-        flex-direction: column;
-      }
-      
-      .input-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .equation-type {
-        flex-direction: column;
-      }
-    }
-  </style>
-
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Rajdhani:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="../../assets/css/style.css" rel="stylesheet"/>
+<title>Bernoulli's Equation Calculator</title>
 </head>
-<body>
-  <header>
-    <h1>Barrera Calculators</h1>
+<body class="theme-fluid">
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Fluid Discovery for <span>Innovation Labs</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
-  </ul>
-</nav>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+      <li><a class="site-nav__link is-active" href="../index.html">Science of Innovation &amp; Design</a></li>
+      <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture &amp; Engineering</a></li>
+      <li><a class="site-nav__link" href="../../auto-sys-prgm/index.html">Engineering &amp; Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Science of Innovation & Design</a> &gt; 
-    <a href="index.html">Fluid Mechanics</a> &gt;
-    Bernoulli's Equation Calculator
-  </div>
-
-</head>
-<body>
-  <div class="container">
-    <header>
-      <h1>Bernoulli's Equation Calculator</h1>
-      <p class="subtitle">Calculate fluid flow parameters using different forms of Bernoulli's equation</p>
-    </header>
-
-
-    <div class="instructions">
-      <p>Leave exactly one field blank (either P, v, or h at either point) to solve for it. All other fields must be filled.</p>
-      <p>Select which form of Bernoulli's equation you want to use:</p>
-    </div>
-
-    <div class="calculator">
-      <div class="input-section">
-        <h3>Equation Form</h3>
-        <div class="equation-type">
-          <input type="radio" id="pressure-form" name="equation-type" value="pressure" checked>
+  <main>
+    <section class="section">
+      <div class="container">
+        <div class="breadcrumb">
+        <a href="../../index.html">Home</a> &gt; 
+            <a href="../index.html">Science of Innovation &amp; Design</a> &gt; 
+            <a href="index.html">Fluid Mechanics</a> &gt;
+            Bernoulli's Equation Calculator
+          </div>
+        <div class="calculator-shell">
+          <header class="module-header">
+          <h1>Bernoulli's Equation Calculator</h1>
+          <p class="subtitle">Calculate fluid flow parameters using different forms of Bernoulli's equation</p>
+          </header>
+          <div class="instructions">
+          <p>Leave exactly one field blank (either P, v, or h at either point) to solve for it. All other fields must be filled.</p>
+          <p>Select which form of Bernoulli's equation you want to use:</p>
+          </div>
+          <div class="calculator">
+          <div class="input-section">
+          <h3>Equation Form</h3>
+          <div class="equation-type">
+          <input checked="" id="pressure-form" name="equation-type" type="radio" value="pressure"/>
           <label for="pressure-form">Pressure Form (P + ½ρv² + ρgh = constant)</label>
-          
-          <input type="radio" id="head-form" name="equation-type" value="head">
+          <input id="head-form" name="equation-type" type="radio" value="head"/>
           <label for="head-form">Head Form (P/ρg + v²/2g + h = constant)</label>
-          
-          <input type="radio" id="energy-form" name="equation-type" value="energy">
+          <input id="energy-form" name="equation-type" type="radio" value="energy"/>
           <label for="energy-form">Energy Form (P/ρ + v²/2 + gh = constant)</label>
-        </div>
-
-        <h3>Fluid Properties</h3>
-        <div class="input-grid">
+          </div>
+          <h3>Fluid Properties</h3>
+          <div class="input-grid">
           <div class="input-field">
-            <label for="rho">Density ρ (kg/m³)</label>
-            <input type="number" id="rho" step="any" placeholder="e.g., 1000 for water">
+          <label for="rho">Density ρ (kg/m³)</label>
+          <input id="rho" placeholder="e.g., 1000 for water" step="any" type="number"/>
           </div>
           <div class="input-field">
-            <label for="g">Gravity g (m/s²)</label>
-            <input type="number" id="g" value="9.81" step="any">
+          <label for="g">Gravity g (m/s²)</label>
+          <input id="g" step="any" type="number" value="9.81"/>
           </div>
-        </div>
-      </div>
-
-      <div class="input-section">
-        <h3>Point 1</h3>
-        <div class="input-grid">
-          <div class="input-field">
-            <label for="P1">Pressure P₁ (Pa)</label>
-            <input type="number" id="P1" step="any" placeholder="Leave blank to solve">
           </div>
+          </div>
+          <div class="input-section">
+          <h3>Point 1</h3>
+          <div class="input-grid">
           <div class="input-field">
-            <label for="v1">Velocity v₁ (m/s)</label>
-            <input type="number" id="v1" step="any" placeholder="Leave blank to solve">
+          <label for="P1">Pressure P₁ (Pa)</label>
+          <input id="P1" placeholder="Leave blank to solve" step="any" type="number"/>
           </div>
           <div class="input-field">
-            <label for="h1">Height h₁ (m)</label>
-            <input type="number" id="h1" step="any" placeholder="Leave blank to solve">
-          </div>
-        </div>
-      </div>
-
-      <div class="input-section">
-        <h3>Point 2</h3>
-        <div class="input-grid">
-          <div class="input-field">
-            <label for="P2">Pressure P₂ (Pa)</label>
-            <input type="number" id="P2" step="any" placeholder="Leave blank to solve">
+          <label for="v1">Velocity v₁ (m/s)</label>
+          <input id="v1" placeholder="Leave blank to solve" step="any" type="number"/>
           </div>
           <div class="input-field">
-            <label for="v2">Velocity v₂ (m/s)</label>
-            <input type="number" id="v2" step="any" placeholder="Leave blank to solve">
+          <label for="h1">Height h₁ (m)</label>
+          <input id="h1" placeholder="Leave blank to solve" step="any" type="number"/>
+          </div>
+          </div>
+          </div>
+          <div class="input-section">
+          <h3>Point 2</h3>
+          <div class="input-grid">
+          <div class="input-field">
+          <label for="P2">Pressure P₂ (Pa)</label>
+          <input id="P2" placeholder="Leave blank to solve" step="any" type="number"/>
           </div>
           <div class="input-field">
-            <label for="h2">Height h₂ (m)</label>
-            <input type="number" id="h2" step="any" placeholder="Leave blank to solve">
+          <label for="v2">Velocity v₂ (m/s)</label>
+          <input id="v2" placeholder="Leave blank to solve" step="any" type="number"/>
           </div>
-        </div>
-      </div>
-
-      <div class="button-group">
-        <button class="btn-primary" onclick="solveBernoulli()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+          <div class="input-field">
+          <label for="h2">Height h₂ (m)</label>
+          <input id="h2" placeholder="Leave blank to solve" step="any" type="number"/>
+          </div>
+          </div>
+          </div>
+          <div class="button-group">
+          <button class="btn-primary" onclick="solveBernoulli()">
+          <svg fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path>
           </svg>
-          Solve Equation
-        </button>
-        <button class="btn-secondary" onclick="resetFields()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
-            <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    Solve Equation
+                  </button>
+          <button class="btn-secondary" onclick="resetFields()">
+          <svg fill="currentColor" height="16" viewbox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z" fill-rule="evenodd"></path>
+          <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"></path>
           </svg>
-          Reset
-        </button>
+                    Reset
+                  </button>
+          </div>
+          <div class="results" id="results"></div>
+          </div>
+        </div>
       </div>
+    </section>
+  </main>
 
-      <div class="results" id="results"></div>
-    </div>
-  </div>
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Fluid Mechanics Studio</p>
+  </footer>
 
   <script>
     // Add event listeners for Enter key
