@@ -10,33 +10,41 @@
   </head>
 <body class="theme-solid">
 
-  <header>
-    <h1>Barrera Calculators</h1>
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Solid mechanics clarity for <span>structural checks</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
+<nav class="site-nav">
+  <ul class="site-nav__list">
+    <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+    <li><a class="site-nav__link" href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a class="site-nav__link is-active" href="../index.html">Science of Architecture & Engineering</a></li>
+    <li><a class="site-nav__link" href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
+    <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
   </ul>
 </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Science of Architecture & Engineering</a> &gt; 
-    <a href="index.html">Solid Mechanics</a> &gt;
-    Stress Calculator
-  </div>
-
+<main class="calc-page">
   <div class="container">
-    <header>
-      <h1>Stress Calculator</h1>
-      <p class="subtitle">Calculate different types of stress in materials</p>
-    </header>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt;
+      <a href="../index.html">Science of Architecture & Engineering</a> &gt;
+      <a href="index.html">Solid Mechanics</a> &gt;
+      Stress Calculator
+    </div>
+
+    <div class="calculator-shell">
+      <header class="calc-hero">
+        <div class="calc-meta">
+          <span class="calc-tag">Materials</span>
+          <span class="calc-tag">Stress States</span>
+        </div>
+        <h1>Stress Calculator</h1>
+        <p class="subtitle">Calculate different types of stress in materials</p>
+      </header>
 
     <div class="instructions">
       Select the type of stress and enter the required values. The calculator will show the results with step-by-step solutions.
@@ -78,7 +86,13 @@
 
       <div class="results" id="results"></div>
     </div>
+    </div>
   </div>
+</main>
+
+  <footer>
+    <p>© Barrera Calculators</p>
+  </footer>
 
   <script>
     // Function to update input fields based on selected stress type
