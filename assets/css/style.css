@@ -1182,16 +1182,102 @@ body.theme-solid {
 
 body.theme-electronics {
   --primary: #22d3ee;
-  --secondary: #0ea5e9;
-  --accent: #facc15;
-  --page-bg: #042f2e;
+  --secondary: #6366f1;
+  --accent: #a3e635;
+  --page-bg: #050914;
   --dark: #0f172a;
-  --page-pattern: linear-gradient(90deg, rgba(15, 118, 110, 0.18) 1px, transparent 1px),
-    linear-gradient(rgba(8, 47, 73, 0.25) 1px, transparent 1px);
-  --page-pattern-size: 54px 54px;
-  --hero-gradient: linear-gradient(135deg, #0f172a, #0ea5e9);
+  --page-pattern: radial-gradient(circle at 1px 1px, rgba(34, 211, 238, 0.14) 1.5px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(99, 102, 241, 0.18) 1.5px, transparent 0);
+  --page-pattern-size: 58px 58px;
+  --hero-gradient: linear-gradient(135deg, #0b1729, #1d4ed8 55%, #22d3ee);
   --chip-bg: rgba(34, 211, 238, 0.22);
   --chip-color: #ecfeff;
+}
+
+.theme-electronics main {
+  background: radial-gradient(circle at 20% 20%, rgba(34, 211, 238, 0.08), transparent 32%),
+    radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.12), transparent 26%), var(--page-pattern), var(--page-bg);
+  background-size: 420px 420px, 440px 440px, var(--page-pattern-size), auto;
+  min-height: 100vh;
+}
+
+.theme-electronics .hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  box-shadow: 0 18px 32px rgba(0, 0, 0, 0.35);
+  isolation: isolate;
+}
+
+.theme-electronics .hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 15% 30%, rgba(255, 255, 255, 0.08), transparent 42%),
+    radial-gradient(circle at 85% 60%, rgba(163, 230, 53, 0.12), transparent 45%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.theme-electronics .hero__content {
+  position: relative;
+  z-index: 1;
+}
+
+.theme-electronics .calculator-card {
+  background: linear-gradient(160deg, rgba(34, 211, 238, 0.12), rgba(99, 102, 241, 0.08));
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  box-shadow: 0 18px 26px rgba(0, 0, 0, 0.35);
+}
+
+.theme-electronics .calculator-card .card-image {
+  background: linear-gradient(135deg, rgba(13, 148, 136, 0.32), rgba(99, 102, 241, 0.22));
+  color: #e0f2fe;
+}
+
+.theme-electronics .calculator-shell,
+.theme-electronics .instructions,
+.theme-electronics .results,
+.theme-electronics .input-field input,
+.theme-electronics .input-field textarea {
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(34, 211, 238, 0.35);
+  box-shadow: 0 16px 22px rgba(0, 0, 0, 0.28);
+  color: #e5edff;
+}
+
+.theme-electronics .input-field input::placeholder,
+.theme-electronics .input-field textarea::placeholder {
+  color: rgba(229, 237, 255, 0.6);
+}
+
+.theme-electronics .calculator-shell {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.92), rgba(4, 7, 15, 0.92));
+  border: 1px solid rgba(99, 102, 241, 0.35);
+}
+
+.theme-electronics .module-header h1,
+.theme-electronics .module-header .subtitle,
+.theme-electronics .instructions,
+.theme-electronics .results h3,
+.theme-electronics label {
+  color: #e5edff;
+}
+
+.theme-electronics .btn-primary {
+  background: linear-gradient(90deg, #22d3ee, #1d4ed8);
+  box-shadow: 0 12px 20px rgba(34, 211, 238, 0.35);
+}
+
+.theme-electronics .btn-secondary {
+  color: #e0f2fe;
+  border-color: rgba(34, 211, 238, 0.6);
+}
+
+.theme-electronics .data-chip {
+  color: #0b1729;
+  background: linear-gradient(120deg, #a3e635, #22d3ee);
 }
 
 body.theme-automation {
