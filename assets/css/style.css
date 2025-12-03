@@ -1192,6 +1192,7 @@ body.theme-electronics {
   --hero-gradient: linear-gradient(135deg, #0b1729, #1d4ed8 55%, #22d3ee);
   --chip-bg: rgba(34, 211, 238, 0.22);
   --chip-color: #ecfeff;
+  color: #e8f4ff;
 }
 
 .theme-electronics main {
@@ -1199,6 +1200,7 @@ body.theme-electronics {
     radial-gradient(circle at 80% 0%, rgba(99, 102, 241, 0.12), transparent 26%), var(--page-pattern), var(--page-bg);
   background-size: 420px 420px, 440px 440px, var(--page-pattern-size), auto;
   min-height: 100vh;
+  color: #e8f4ff;
 }
 
 .theme-electronics .hero {
@@ -1229,6 +1231,11 @@ body.theme-electronics {
   background: linear-gradient(160deg, rgba(34, 211, 238, 0.12), rgba(99, 102, 241, 0.08));
   border: 1px solid rgba(34, 211, 238, 0.28);
   box-shadow: 0 18px 26px rgba(0, 0, 0, 0.35);
+}
+
+.theme-electronics .calculator-card h3,
+.theme-electronics .calculator-card p {
+  color: #e8f4ff;
 }
 
 .theme-electronics .calculator-card .card-image {
