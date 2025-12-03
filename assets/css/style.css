@@ -1272,6 +1272,39 @@ body.theme-electronics {
   color: #e5edff;
 }
 
+.theme-electronics .calculator-shell,
+.theme-electronics .calculator-shell p,
+.theme-electronics .calculator-shell li,
+.theme-electronics .results,
+.theme-electronics .results p,
+.theme-electronics .results li,
+.theme-electronics .instructions,
+.theme-electronics .instructions p,
+.theme-electronics .instructions li {
+  color: #e8f4ff;
+}
+
+.theme-electronics .input-field label,
+.theme-electronics .label,
+.theme-electronics .result-label,
+.theme-electronics .input-field .unit {
+  color: rgba(232, 244, 255, 0.78);
+}
+
+.theme-electronics .formula,
+.theme-electronics .formula-callout {
+  background: rgba(99, 102, 241, 0.2);
+  color: #dbeafe;
+}
+
+.theme-electronics .alert,
+.theme-electronics .warning,
+.theme-electronics .error {
+  background: rgba(247, 37, 133, 0.18);
+  color: #ffe4f3;
+  border-left-color: #f472b6;
+}
+
 .theme-electronics .btn-primary {
   background: linear-gradient(90deg, #22d3ee, #1d4ed8);
   box-shadow: 0 12px 20px rgba(34, 211, 238, 0.35);
