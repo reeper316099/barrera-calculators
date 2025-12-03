@@ -4,41 +4,48 @@
   <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;700&display=swap"
+ rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/style.css">
   <title>Stress Calculator</title>
   </head>
 <body class="theme-solid">
 
-
-
-  <header>
-    <h1>Barrera Calculators</h1>
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Solid mechanics clarity for <span>design critiques</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
+<nav class="site-nav">
+  <ul class="site-nav__list">
+    <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+    <li><a class="site-nav__link is-active" href="../index.html">Science of Innovation & Design</a></li>
+    <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a class="site-nav__link" href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
+    <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
   </ul>
 </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Science of Innovation & Design</a> &gt; 
-    <a href="index.html">Solid Mechanics</a> &gt;
-    Stress Calculator
-  </div>
-
+<main class="calc-page">
   <div class="container">
-    <header>
-      <h1>Stress Calculator</h1>
-      <p class="subtitle">Calculate different types of stress in materials</p>
-    </header>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt;
+      <a href="../index.html">Science of Innovation & Design</a> &gt;
+      <a href="index.html">Solid Mechanics</a> &gt;
+      Stress Calculator
+    </div>
+
+    <div class="calculator-shell">
+      <header class="calc-hero">
+        <div class="calc-meta">
+          <span class="calc-tag">Materials</span>
+          <span class="calc-tag">Stress States</span>
+        </div>
+        <h1>Stress Calculator</h1>
+        <p class="subtitle">Calculate different types of stress in materials</p>
+      </header>
 
     <div class="instructions">
       Select the type of stress and enter the required values. The calculator will show the results with step-by-step solutions.
@@ -80,7 +87,13 @@
 
       <div class="results" id="results"></div>
     </div>
+    </div>
   </div>
+</main>
+
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Solid Mechanics Lab</p>
+  </footer>
 
   <script>
     // Function to update input fields based on selected stress type
@@ -170,7 +183,7 @@
           resultValue = force / area;
           equation = "σ = F / A";
           const stressName = stressType === "tensile" ? "Tensile Stress" : "Compressive Stress";
-          
+
           resultHTML = `
             <h2>${stressName} Result</h2>
             <div class="result-item">
@@ -202,14 +215,13 @@
               <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                  Calculate the result:
-                  <div class="equation">σ = ${resultValue.toFixed(2)} Pa</div>
+                  Perform the division to find the stress value.
                 </div>
               </div>
             </div>
           `;
         }
-      } 
+      }
       else if (stressType === "shear") {
         const shearForce = parseFloat(document.getElementById("shearForce").value);
         const shearArea = parseFloat(document.getElementById("shearArea").value);
@@ -220,13 +232,13 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
               </svg>
-              Please provide valid values for shear force and shear area.
+              Please provide valid values for shear force and area.
             </div>
           `;
         } else {
           resultValue = shearForce / shearArea;
-          equation = "τ = V / A";
-          
+          equation = "τ = F / A";
+
           resultHTML = `
             <h2>Shear Stress Result</h2>
             <div class="result-item">
@@ -245,7 +257,7 @@
                 <div class="step-number">1</div>
                 <div class="step-content">
                   Calculate shear stress using the formula:
-                  <div class="equation">τ = V / A</div>
+                  <div class="equation">τ = F / A</div>
                 </div>
               </div>
               <div class="step">
@@ -258,14 +270,13 @@
               <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                  Calculate the result:
-                  <div class="equation">τ = ${resultValue.toFixed(2)} Pa</div>
+                  Perform the division to find the shear stress value.
                 </div>
               </div>
             </div>
           `;
         }
-      } 
+      }
       else if (stressType === "torsion") {
         const torque = parseFloat(document.getElementById("torque").value);
         const radius = parseFloat(document.getElementById("radius").value);
@@ -277,13 +288,13 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
               </svg>
-              Please provide valid values for torque, radius, and polar moment.
+              Please provide valid values for torque, radius, and polar moment of inertia.
             </div>
           `;
         } else {
-          resultValue = torque * radius / polarMoment;
-          equation = "τ = T × r / J";
-          
+          resultValue = (torque * radius) / polarMoment;
+          equation = "τ = (T × r) / J";
+
           resultHTML = `
             <h2>Torsional Stress Result</h2>
             <div class="result-item">
@@ -302,21 +313,20 @@
                 <div class="step-number">1</div>
                 <div class="step-content">
                   Calculate torsional stress using the formula:
-                  <div class="equation">τ = T × r / J</div>
+                  <div class="equation">τ = (T × r) / J</div>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">2</div>
                 <div class="step-content">
                   Substitute the values:
-                  <div class="equation">τ = ${torque} Nm × ${radius} m / ${polarMoment} m⁴</div>
+                  <div class="equation">τ = (${torque} Nm × ${radius} m) / ${polarMoment} m⁴</div>
                 </div>
               </div>
               <div class="step">
                 <div class="step-number">3</div>
                 <div class="step-content">
-                  Calculate the result:
-                  <div class="equation">τ = ${resultValue.toFixed(2)} Pa</div>
+                  Perform the multiplication and division to find the torsional stress value.
                 </div>
               </div>
             </div>
@@ -324,20 +334,24 @@
         }
       }
 
-      document.getElementById("results").innerHTML = resultHTML + stepsHTML;
+      // Display the result and steps
+      document.getElementById("results").innerHTML = `
+        <div class="result-card">
+          ${resultHTML}
+          ${stepsHTML}
+        </div>
+      `;
     }
 
-    // Function to reset all fields
+    // Function to reset all input fields and results
     function resetFields() {
       document.getElementById("stressType").value = "tensile";
-      updateFields(); // Reset the fields based on default selection
-      document.getElementById("results").innerHTML = "";
+      document.getElementById("inputFields").innerHTML = '';
+      document.getElementById("results").innerHTML = '';
+      updateFields();
     }
 
-    // Update fields when the stress type changes
-    document.getElementById("stressType").addEventListener("change", updateFields);
-
-    // Initialize the fields on page load
+    // Initialize input fields on page load
     window.onload = updateFields;
   </script>
 </body>

@@ -13,69 +13,82 @@
   <header class="site-header">
     <div class="container">
       <p class="site-header__brand">Barrera Calculators</p>
-      <p class="site-header__tagline">Structural Insight for <span>Material Performance</span></p>
+      <p class="site-header__tagline">Solid mechanics clarity for <span>design studio reviews</span></p>
     </div>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-      <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-      <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-      <li><a href="../../misc./index.html">Misc.</a></li>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+      <li><a class="site-nav__link is-active" href="../index.html">Science of Innovation &amp; Design</a></li>
+      <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture &amp; Engineering</a></li>
+      <li><a class="site-nav__link" href="../../auto-sys-prgm/index.html">Engineering &amp; Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
     </ul>
   </nav>
 
-  <div class="container">
-    <div class="breadcrumb">
-      <a href="../../index.html">Home</a> &gt; 
-      <a href="../index.html">Science of Innovation & Design</a> &gt; 
-      Solid Mechanics
+  <main>
+    <div class="container">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> &gt;
+        <a href="../index.html">Science of Innovation &amp; Design</a> &gt;
+        Solid Mechanics
+      </div>
     </div>
-    
+
     <section class="hero">
-      <h2>Solid Mechanics Calculators</h2>
-      <p>Tools for analyzing stress, strain, and material behavior</p>
+      <div class="container hero__content">
+        <span class="hero__eyebrow">Structural Analysis</span>
+        <h1 class="hero__headline">Solid Mechanics Calculators</h1>
+        <p class="hero__lede">Analyze stress, strain, and material behavior with quick, presentation-ready outputs for design critiques.</p>
+        <div class="hero__tags">
+          <span class="data-chip">Stress</span>
+          <span class="data-chip">Strain</span>
+          <span class="data-chip">Materials</span>
+        </div>
+      </div>
     </section>
-    
-    <div class="category-description">
-      <p>This collection of calculators helps solve fundamental solid mechanics problems encountered in structural engineering and material science. Select a calculator below to begin your analysis.</p>
-    </div>
-    
-    <div class="calculator-grid">
-      <!-- Stress Calculator -->
-      <div class="calculator-card">
-        <div class="card-image">σ</div>
-        <div class="card-content">
-          <h3>Stress Calculator</h3>
-          <p>Calculate normal and shear stress in structural members under various loading conditions.</p>
-          <a href="stress.html" class="btn">Open Calculator</a>
-        </div>
-      </div>
-      
-      <!-- Strain Calculator -->
-      <div class="calculator-card">
-        <div class="card-image">ε</div>
-        <div class="card-content">
-          <h3>Strain Calculator</h3>
-          <p>Determine axial, shear, and volumetric strain for different materials and loading scenarios.</p>
-          <a href="strain.html" class="btn">Open Calculator</a>
-        </div>
-      </div>
-      
-      <!-- Coming Soon -->
-      <div class="calculator-card">
-        <div class="card-image">📈</div>
-        <div class="card-content">
-          <h3>More Coming Soon</h3>
-          <p>Additional solid mechanics tools including beam bending, torsion, and buckling analysis.</p>
-          <span class="btn" style="background: #ccc; cursor: not-allowed; box-shadow: none;">Coming Soon</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
+    <section class="section">
+      <div class="container">
+        <div class="section-intro">
+          <p>This collection of calculators helps solve fundamental solid mechanics problems encountered in structural engineering and material science. Select a calculator below to begin your analysis.</p>
+        </div>
 
+        <div class="card-grid">
+          <article class="calculator-card">
+            <div class="card-image" aria-hidden="true">σ</div>
+            <div class="card-content">
+              <h3>Stress Calculator</h3>
+              <p>Calculate normal and shear stress in structural members under various loading conditions.</p>
+              <a class="btn btn-primary" href="stress.html">Open Calculator</a>
+            </div>
+          </article>
+
+          <article class="calculator-card">
+            <div class="card-image" aria-hidden="true">ε</div>
+            <div class="card-content">
+              <h3>Strain Calculator</h3>
+              <p>Determine axial, shear, and volumetric strain for different materials and loading scenarios.</p>
+              <a class="btn btn-primary" href="strain.html">Open Calculator</a>
+            </div>
+          </article>
+
+          <article class="calculator-card">
+            <div class="card-image" aria-hidden="true">📈</div>
+            <div class="card-content">
+              <h3>More Coming Soon</h3>
+              <p>Additional solid mechanics tools including beam bending, torsion, and buckling analysis.</p>
+              <span class="btn btn-disabled" aria-disabled="true">Coming Soon</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Solid Mechanics Lab</p>
+  </footer>
 </body>
 </html>
