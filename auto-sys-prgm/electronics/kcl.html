@@ -11,30 +11,38 @@
   </head>
 <body class="theme-electronics">
 
-  <header>
-    <h1>Barrera Calculators</h1>
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Electronics analysis with <span>clean, guided tools</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
-  </ul>
-</nav>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+      <li><a class="site-nav__link" href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+      <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+      <li><a class="site-nav__link is-active" href="../index.html">Engineering & Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Engineering & Auto Systems Programming</a> &gt; 
-    <a href="index.html">Electronics</a> &gt;
-    KCL Calculator
-  </div>
-
+<main class="calc-page">
   <div class="container">
-    <header>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt;
+      <a href="../index.html">Engineering & Auto Systems Programming</a> &gt;
+      <a href="index.html">Electronics</a> &gt;
+      KCL Calculator
+    </div>
+
+    <div class="calculator-shell">
+    <header class="calc-hero">
+      <div class="calc-meta">
+        <span class="calc-tag">Circuit Nodes</span>
+        <span class="calc-tag">Current Balance</span>
+      </div>
       <h1>Kirchhoff's Current Law Calculator</h1>
       <p class="subtitle">Calculate current sums at any circuit node</p>
     </header>
@@ -87,7 +95,9 @@
       <div class="results" id="results"></div>
       <div class="steps" id="steps"></div>
     </div>
+    </div>
   </div>
+</main>
 
   <footer>
     <p>© Barrera Calculators</p>
