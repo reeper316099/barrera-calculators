@@ -307,7 +307,8 @@ body > nav:not(.site-nav) a.active,
   color: rgba(15, 23, 42, 0.7);
 }
 
-.card-grid {
+.card-grid,
+.calculator-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: clamp(1.8rem, 3vw, 2.5rem);
@@ -328,6 +329,10 @@ body > nav:not(.site-nav) a.active,
   transition: var(--transition);
 }
 
+.calculator-card {
+  align-items: flex-start;
+}
+
 .category-card:hover,
 .subcategory-card:hover,
 .calculator-card:hover,
@@ -345,6 +350,25 @@ body > nav:not(.site-nav) a.active,
   place-items: center;
   font-size: 1.55rem;
   color: var(--primary);
+}
+
+.card-image {
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(67, 97, 238, 0.12), rgba(72, 149, 239, 0.16));
+  border: 1px solid rgba(67, 97, 238, 0.18);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--secondary);
+  box-shadow: 0 12px 24px rgba(67, 97, 238, 0.14);
+}
+
+.card-content {
+  display: grid;
+  gap: 0.55rem;
 }
 
 .category-card__title,
@@ -544,6 +568,8 @@ button.btn-secondary:hover {
 .calculator {
   display: grid;
   gap: clamp(1.5rem, 3vw, 2.5rem);
+  max-width: 960px;
+  margin: 0 auto;
 }
 
 .input-section {
