@@ -63,20 +63,42 @@ main {
   margin: 0 auto;
 }
 
+.calc-page {
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
 .container > header:not(.site-header) {
   text-align: center;
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+  background: linear-gradient(135deg, rgba(67, 97, 238, 0.12), rgba(72, 149, 239, 0.08));
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: calc(var(--border-radius) - 6px);
+  padding: clamp(1.5rem, 3vw, 2.1rem);
+  box-shadow: 0 20px 32px rgba(15, 23, 42, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.container > header:not(.site-header)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 22%, rgba(148, 163, 184, 0.15), transparent 36%),
+    radial-gradient(circle at 80% 16%, rgba(72, 149, 239, 0.16), transparent 32%);
+  pointer-events: none;
 }
 
 .container > header:not(.site-header) h1 {
   font-family: var(--font-display);
   font-size: clamp(2rem, 4vw, 2.7rem);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.35rem;
+  position: relative;
 }
 
 .container > header:not(.site-header) .subtitle {
   color: rgba(15, 23, 42, 0.65);
   font-size: 1.05rem;
+  position: relative;
 }
 
 body > header:not(.site-header),
@@ -515,6 +537,60 @@ button.btn-secondary:hover {
   margin-top: 1.5rem;
 }
 
+.calc-hero {
+  background: linear-gradient(135deg, rgba(67, 97, 238, 0.12), rgba(72, 149, 239, 0.08));
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: calc(var(--border-radius) - 4px);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  text-align: left;
+  box-shadow: 0 22px 38px rgba(15, 23, 42, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.calc-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 18% 20%, rgba(148, 163, 184, 0.16), transparent 35%),
+    radial-gradient(circle at 82% 15%, rgba(72, 149, 239, 0.12), transparent 32%),
+    radial-gradient(circle at 70% 80%, rgba(76, 201, 240, 0.12), transparent 42%);
+  pointer-events: none;
+}
+
+.calc-hero h1 {
+  position: relative;
+  margin-bottom: 0.35rem;
+}
+
+.calc-hero .subtitle {
+  position: relative;
+  color: rgba(15, 23, 42, 0.7);
+  font-size: 1.05rem;
+}
+
+.calc-meta {
+  position: relative;
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: 0.85rem;
+}
+
+.calc-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(67, 97, 238, 0.12);
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+}
+
 .module-header {
   text-align: center;
   margin-bottom: 2rem;
@@ -539,6 +615,7 @@ button.btn-secondary:hover {
   padding: clamp(1.5rem, 3vw, 2rem);
   border-left: 4px solid var(--accent);
   color: rgba(15, 23, 42, 0.75);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.06);
 }
 
 .equation-type {
@@ -570,6 +647,11 @@ button.btn-secondary:hover {
   gap: clamp(1.5rem, 3vw, 2.5rem);
   max-width: 960px;
   margin: 0 auto;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: var(--soft-radius);
+  padding: clamp(1.25rem, 2.8vw, 2rem);
+  box-shadow: 0 20px 34px rgba(15, 23, 42, 0.08);
 }
 
 .input-section {
@@ -753,6 +835,106 @@ button.btn-secondary:hover {
   padding: 0.75rem 1rem;
   color: rgba(15, 23, 42, 0.7);
   display: flex;
+}
+
+/* Resistor color code + canvas layouts */
+.wrap {
+  width: min(1120px, 92vw);
+  margin: 0 auto;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.wrap .card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: var(--border-radius);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  box-shadow: var(--box-shadow);
+  display: grid;
+  gap: 1.15rem;
+}
+
+.wrap .title {
+  margin: 0;
+}
+
+.wrap .subtitle {
+  margin: 0;
+  color: rgba(15, 23, 42, 0.7);
+}
+
+.controls {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.col-4 {
+  flex: 1 1 220px;
+}
+
+.col-12 {
+  flex: 1 1 100%;
+}
+
+.band-type {
+  display: inline-flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  background: rgba(148, 163, 184, 0.12);
+  padding: 0.75rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.24);
+}
+
+.band-type input {
+  display: none;
+}
+
+.band-type label {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: rgba(15, 23, 42, 0.72);
+  transition: var(--transition);
+}
+
+.band-type input:checked + label {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.16);
+}
+
+.canvas-wrap {
+  background: rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: var(--soft-radius);
+  padding: 1rem;
+}
+
+.result {
+  background: rgba(67, 97, 238, 0.08);
+  border-radius: var(--soft-radius);
+  border: 1px solid rgba(67, 97, 238, 0.22);
+  padding: 1rem 1.25rem;
+  font-weight: 700;
+  color: var(--secondary);
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+.legend {
+  background: rgba(148, 163, 184, 0.12);
+  border-radius: var(--soft-radius);
+  padding: 0.85rem 1rem;
+  color: rgba(15, 23, 42, 0.7);
 }
 
 .table-wrapper {
@@ -948,5 +1130,9 @@ body.theme-units {
 .containerb {
   width: min(1120px, 92vw);
   margin: 0 auto;
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
 }
 
