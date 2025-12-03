@@ -1305,6 +1305,61 @@ body.theme-electronics {
   border-left-color: #f472b6;
 }
 
+.theme-electronics .steps {
+  background: rgba(99, 102, 241, 0.16);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+}
+
+.theme-electronics .step {
+  color: #e8f4ff;
+  border-left-color: #22d3ee;
+}
+
+.theme-electronics .step-number {
+  background: linear-gradient(135deg, #22d3ee, #1d4ed8);
+  color: #0a0f1c;
+  box-shadow: 0 10px 18px rgba(34, 211, 238, 0.25);
+}
+
+.theme-electronics .current-grid,
+.theme-electronics .voltage-drop-grid {
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  color: #e8f4ff;
+}
+
+.theme-electronics .current-grid input,
+.theme-electronics .voltage-drop-grid input,
+.theme-electronics .circuit-input {
+  background: rgba(11, 17, 29, 0.88);
+  color: #e8f4ff;
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+.theme-electronics .current-label,
+.theme-electronics .voltage-drop-label,
+.theme-electronics .current-grid .unit,
+.theme-electronics .voltage-drop-grid .unit {
+  color: rgba(232, 244, 255, 0.86);
+}
+
+.theme-electronics .circuit-diagram {
+  background: rgba(4, 7, 15, 0.78);
+  border-color: rgba(34, 211, 238, 0.28);
+  color: #dbeafe;
+}
+
+.theme-electronics .result,
+.theme-electronics .result-value-block {
+  background: linear-gradient(145deg, rgba(34, 211, 238, 0.16), rgba(99, 102, 241, 0.18));
+  border-left-color: #22d3ee;
+  color: #e8f4ff;
+}
+
+.theme-electronics .result strong {
+  color: #a3e635;
+}
+
 .theme-electronics .btn-primary {
   background: linear-gradient(90deg, #22d3ee, #1d4ed8);
   box-shadow: 0 12px 20px rgba(34, 211, 238, 0.35);
