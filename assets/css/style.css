@@ -1449,6 +1449,51 @@ body.theme-electronics {
   width: 100%;
 }
 
+.theme-electronics .wrap .card {
+  background: linear-gradient(155deg, rgba(4, 7, 15, 0.94), rgba(11, 17, 29, 0.9));
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.4);
+  color: #e8f4ff;
+}
+
+.theme-electronics .wrap .title,
+.theme-electronics .wrap .subtitle,
+.theme-electronics .wrap label,
+.theme-electronics .wrap .muted,
+.theme-electronics .wrap .steps,
+.theme-electronics .wrap .legend {
+  color: #e8f4ff;
+}
+
+.theme-electronics .wrap select {
+  background: rgba(8, 12, 22, 0.92);
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  color: #e8f4ff;
+  border-radius: var(--soft-radius);
+  padding: 0.55rem 0.75rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.theme-electronics .wrap .band-type label {
+  background: rgba(8, 12, 22, 0.85);
+  color: #e8f4ff;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.theme-electronics .wrap .btn {
+  background: linear-gradient(90deg, #22d3ee, #1d4ed8);
+  color: #0a0f1c;
+  box-shadow: 0 12px 20px rgba(34, 211, 238, 0.32);
+}
+
+.theme-electronics .wrap .result,
+.theme-electronics .wrap .steps {
+  background: linear-gradient(145deg, rgba(34, 211, 238, 0.16), rgba(99, 102, 241, 0.18));
+  border: 1px solid rgba(34, 211, 238, 0.32);
+  color: #e8f4ff;
+}
+
 body.theme-automation {
   --primary: #1fb6ff;
   --secondary: #7c3aed;
