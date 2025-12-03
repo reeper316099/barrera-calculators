@@ -1259,7 +1259,7 @@ body.theme-electronics {
 .theme-electronics .calculator-shell .calc-hero .subtitle,
 .theme-electronics .calculator-shell .calc-meta,
 .theme-electronics .calculator-shell .calc-tag {
-  color: #f5fbff;
+  color: #eaf4ff;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
 }
 
@@ -1278,7 +1278,16 @@ body.theme-electronics {
 .theme-electronics .instructions,
 .theme-electronics .results h3,
 .theme-electronics label {
-  color: #e5edff;
+  color: #eaf4ff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
+.theme-electronics .calculator > header h1,
+.theme-electronics .calculator > header .subtitle,
+.theme-electronics .container > h1,
+.theme-electronics .container > h1 + .subtitle {
+  color: #eaf4ff;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 }
 
 .theme-electronics .calculator .instructions,
