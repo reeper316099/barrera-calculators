@@ -1375,6 +1375,63 @@ body.theme-electronics {
   background: linear-gradient(120deg, #a3e635, #22d3ee);
 }
 
+/* Legacy electronics calculator layout overrides */
+.theme-electronics .calculator {
+  background: linear-gradient(150deg, rgba(4, 7, 15, 0.92), rgba(11, 17, 29, 0.92));
+  border: 1px solid rgba(99, 102, 241, 0.35);
+  box-shadow: 0 26px 42px rgba(0, 0, 0, 0.4);
+  color: #e8f4ff;
+}
+
+.theme-electronics .calculator h2,
+.theme-electronics .calculator h3 {
+  color: #e8f4ff;
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.theme-electronics .input-section {
+  background: rgba(15, 23, 42, 0.82);
+  border-color: rgba(34, 211, 238, 0.25);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.theme-electronics .input-field label,
+.theme-electronics .resistor-grid span,
+.theme-electronics .label {
+  color: rgba(232, 244, 255, 0.85);
+}
+
+.theme-electronics .input-field input,
+.theme-electronics .input-field select {
+  background: rgba(8, 12, 22, 0.9);
+  border-color: rgba(99, 102, 241, 0.4);
+  color: #e8f4ff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.theme-electronics .input-field input::placeholder {
+  color: rgba(232, 244, 255, 0.7);
+}
+
+.theme-electronics .input-field select {
+  color: #e8f4ff;
+}
+
+.theme-electronics .resistor-grid {
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(34, 211, 238, 0.28);
+  border-radius: var(--soft-radius);
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.theme-electronics .resistor-grid select,
+.theme-electronics .resistor-grid input {
+  width: 100%;
+}
+
 body.theme-automation {
   --primary: #1fb6ff;
   --secondary: #7c3aed;
