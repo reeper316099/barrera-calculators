@@ -11,35 +11,43 @@
   </head>
 <body class="theme-electronics">
 
-  <header>
-    <h1>Barrera Calculators</h1>
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Circuit Intelligence for <span>Automation Teams</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
+<nav class="site-nav">
+  <ul class="site-nav__list">
+    <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+    <li><a class="site-nav__link" href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
+    <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
+    <li><a class="site-nav__link is-active" href="../index.html">Engineering & Auto Systems Programming</a></li>
+    <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
   </ul>
 </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Engineering & Auto Systems Programming</a> &gt; 
-    <a href="index.html">Electronics</a> &gt;
-    Ohm's Law Calculator
-  </div>
-
+<main class="calc-page">
   <div class="container">
-    <header>
-      <h1>Ohm's Law Calculator</h1>
-      <p class="subtitle">Enter any 2 known values to calculate the others</p>
-    </header>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt;
+      <a href="../index.html">Engineering & Auto Systems Programming</a> &gt;
+      <a href="index.html">Electronics</a> &gt;
+      Ohm's Law Calculator
+    </div>
 
-    <div class="calculator">
+    <div class="calculator-shell">
+      <header class="module-header">
+        <h1>Ohm's Law Calculator</h1>
+        <p class="subtitle">Enter any 2 known values to calculate the others</p>
+      </header>
+
+      <div class="instructions">
+        Supply any two known electrical quantities below. We'll derive the remaining values, flag inconsistent entries, and outline the steps used.
+      </div>
+
+      <div class="calculator">
       <div class="input-group">
         <div class="input-field">
           <label for="voltage">Voltage (V)</label>
@@ -73,10 +81,12 @@
 
       <div class="results" id="results"></div>
     </div>
-  </div>
-  
-  <footer>
-    <p>© Barrera Calculators</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Electronics Studio</p>
   </footer>
 
   <script>
@@ -212,20 +222,20 @@
         <h2>Calculation Results</h2>
         <div class="result-grid">
           <div class="result-item">
-            <div class="value">${V.toFixed(2)}</div>
-            <div class="label">Voltage (V)</div>
+            <div class="result-value">${V.toFixed(2)}</div>
+            <div class="result-label">Voltage (V)</div>
           </div>
           <div class="result-item">
-            <div class="value">${I.toFixed(2)}</div>
-            <div class="label">Current (I)</div>
+            <div class="result-value">${I.toFixed(2)}</div>
+            <div class="result-label">Current (I)</div>
           </div>
           <div class="result-item">
-            <div class="value">${R.toFixed(2)}</div>
-            <div class="label">Resistance (Ω)</div>
+            <div class="result-value">${R.toFixed(2)}</div>
+            <div class="result-label">Resistance (Ω)</div>
           </div>
           <div class="result-item">
-            <div class="value">${P.toFixed(2)}</div>
-            <div class="label">Power (W)</div>
+            <div class="result-value">${P.toFixed(2)}</div>
+            <div class="result-label">Power (W)</div>
           </div>
         </div>
         <div class="formula">${formula}</div>
