@@ -1254,6 +1254,15 @@ body.theme-electronics {
   color: #e5edff;
 }
 
+.theme-electronics .calculator-shell .calc-hero,
+.theme-electronics .calculator-shell .calc-hero h1,
+.theme-electronics .calculator-shell .calc-hero .subtitle,
+.theme-electronics .calculator-shell .calc-meta,
+.theme-electronics .calculator-shell .calc-tag {
+  color: #f5fbff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
 .theme-electronics .input-field input::placeholder,
 .theme-electronics .input-field textarea::placeholder {
   color: rgba(229, 237, 255, 0.6);
@@ -1270,6 +1279,14 @@ body.theme-electronics {
 .theme-electronics .results h3,
 .theme-electronics label {
   color: #e5edff;
+}
+
+.theme-electronics .calculator .instructions,
+.theme-electronics .calculator .results,
+.theme-electronics .calculator .steps,
+.theme-electronics .calculator .result-value,
+.theme-electronics .calculator .result-value-block {
+  color: #f1f7ff;
 }
 
 .theme-electronics .calculator-shell,
