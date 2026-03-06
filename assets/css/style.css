@@ -1124,9 +1124,7 @@ body > footer:not(.site-footer) {
 
 footer.site-footer a,
 body > footer:not(.site-footer) a {
-  color: var(--success);
-  font-weight: 600;
-}
+  color: var(--accent);
 
 footer.site-footer a:hover,
 body > footer:not(.site-footer) a:hover {
@@ -1393,9 +1391,9 @@ body.theme-electronics {
 .theme-electronics .alert,
 .theme-electronics .warning,
 .theme-electronics .error {
-  background: rgba(247, 37, 133, 0.18);
-  color: #ffe4f3;
-  border-left-color: #f472b6;
+  background: rgba(251, 146, 60, 0.14);
+  color: #fed7aa;
+  border-left-color: #fb923c;
 }
 
 .theme-electronics .steps {
@@ -1464,8 +1462,9 @@ body.theme-electronics {
 }
 
 .theme-electronics .data-chip {
-  color: #0b1729;
+  color: #0b1729 !important;
   background: linear-gradient(120deg, #a3e635, #22d3ee);
+  border-color: rgba(163, 230, 53, 0.3);
 }
 
 /* Legacy electronics calculator layout overrides */
