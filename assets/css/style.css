@@ -3,26 +3,26 @@
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-display: 'Rajdhani', 'Inter', sans-serif;
 
-  --primary: #4361ee;
-  --secondary: #3a0ca3;
-  --accent: #4895ef;
+  --primary: #5046e5;
+  --secondary: #312e81;
+  --accent: #06b6d4;
   --light: #f8f9fa;
   --dark: #1f2933;
   --success: #4cc9f0;
   --warning: #f72585;
   --border-radius: 16px;
   --soft-radius: 12px;
-  --box-shadow: 0 24px 45px rgba(15, 23, 42, 0.12);
-  --card-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+  --box-shadow: 0 24px 48px rgba(80, 70, 229, 0.14);
+  --card-shadow: 0 16px 32px rgba(80, 70, 229, 0.08);
   --transition: all 0.3s ease;
 
   --page-bg: #f5f7ff;
-  --page-pattern: radial-gradient(circle at 1px 1px, rgba(67, 97, 238, 0.18) 1px, transparent 0);
+  --page-pattern: radial-gradient(circle at 1px 1px, rgba(80, 70, 229, 0.16) 1px, transparent 0);
   --page-pattern-size: 60px 60px;
-  --hero-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
-  --hero-accent: rgba(72, 149, 239, 0.35);
-  --chip-bg: rgba(255, 255, 255, 0.12);
-  --chip-color: #f8fafc;
+  --hero-gradient: linear-gradient(135deg, #1e1b4b 0%, #5046e5 58%, #06b6d4 100%);
+  --hero-accent: rgba(6, 182, 212, 0.32);
+  --chip-bg: rgba(255, 255, 255, 0.14);
+  --chip-color: #f0f9ff;
 }
 
 *, *::before, *::after {
@@ -70,11 +70,11 @@ main {
 .container > header:not(.site-header) {
   text-align: center;
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
-  background: linear-gradient(135deg, rgba(67, 97, 238, 0.12), rgba(72, 149, 239, 0.08));
-  border: 1px solid rgba(148, 163, 184, 0.22);
+  background: linear-gradient(135deg, rgba(80, 70, 229, 0.12), rgba(6, 182, 212, 0.07));
+  border: 1px solid rgba(80, 70, 229, 0.16);
   border-radius: calc(var(--border-radius) - 6px);
   padding: clamp(1.5rem, 3vw, 2.1rem);
-  box-shadow: 0 20px 32px rgba(15, 23, 42, 0.1);
+  box-shadow: 0 20px 32px rgba(80, 70, 229, 0.1);
   position: relative;
   overflow: hidden;
 }
@@ -83,8 +83,8 @@ main {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 20% 22%, rgba(148, 163, 184, 0.15), transparent 36%),
-    radial-gradient(circle at 80% 16%, rgba(72, 149, 239, 0.16), transparent 32%);
+  background: radial-gradient(circle at 20% 22%, rgba(80, 70, 229, 0.12), transparent 36%),
+    radial-gradient(circle at 80% 16%, rgba(6, 182, 212, 0.18), transparent 32%);
   pointer-events: none;
 }
 
@@ -106,7 +106,7 @@ body > header:not(.site-header),
   position: relative;
   padding: 1.75rem 0;
   color: #fff;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.85), rgba(37, 99, 235, 0.9));
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.92), rgba(80, 70, 229, 0.95));
   overflow: hidden;
 }
 
@@ -192,7 +192,7 @@ body > nav:not(.site-nav) a,
   letter-spacing: 0.06em;
   text-transform: uppercase;
   border-radius: 999px;
-  border: 1px solid rgba(67, 97, 238, 0.2);
+  border: 1px solid rgba(80, 70, 229, 0.2);
   color: var(--dark);
   transition: var(--transition);
   font-size: 0.82rem;
@@ -206,7 +206,7 @@ body > nav:not(.site-nav) a.active,
 .site-nav__link.is-active {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #fff;
-  box-shadow: 0 12px 24px rgba(67, 97, 238, 0.28);
+  box-shadow: 0 12px 24px rgba(80, 70, 229, 0.32);
   transform: translateY(-2px);
 }
 
@@ -217,7 +217,7 @@ body > nav:not(.site-nav) a.active,
   color: #fff;
   background: var(--hero-gradient);
   border-radius: 32px;
-  box-shadow: 0 38px 64px rgba(15, 23, 42, 0.28);
+  box-shadow: 0 38px 64px rgba(80, 70, 229, 0.28);
   overflow: hidden;
 }
 
@@ -353,6 +353,7 @@ body > nav:not(.site-nav) a.active,
 
 .calculator-card {
   align-items: flex-start;
+  border-top: 3px solid var(--primary);
 }
 
 .category-card:hover,
@@ -360,7 +361,7 @@ body > nav:not(.site-nav) a.active,
 .calculator-card:hover,
 .card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 32px 48px rgba(15, 23, 42, 0.16);
+  box-shadow: 0 32px 48px rgba(80, 70, 229, 0.18);
 }
 
 .category-card__icon {
@@ -378,14 +379,14 @@ body > nav:not(.site-nav) a.active,
   width: 64px;
   height: 64px;
   border-radius: 18px;
-  background: linear-gradient(160deg, rgba(67, 97, 238, 0.12), rgba(72, 149, 239, 0.16));
-  border: 1px solid rgba(67, 97, 238, 0.18);
+  background: linear-gradient(160deg, rgba(80, 70, 229, 0.12), rgba(6, 182, 212, 0.16));
+  border: 1px solid rgba(80, 70, 229, 0.18);
   display: grid;
   place-items: center;
   font-weight: 800;
   font-size: 1.1rem;
   color: var(--secondary);
-  box-shadow: 0 12px 24px rgba(67, 97, 238, 0.14);
+  box-shadow: 0 12px 24px rgba(80, 70, 229, 0.14);
 }
 
 .card-content {
@@ -427,7 +428,7 @@ body > nav:not(.site-nav) a.active,
 }
 
 .card-meta span {
-  background: rgba(67, 97, 238, 0.12);
+  background: rgba(80, 70, 229, 0.12);
   color: var(--primary);
   padding: 0.35rem 0.75rem;
   border-radius: 999px;
@@ -476,7 +477,7 @@ button.btn-primary,
 .calculator-card a {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: #fff;
-  box-shadow: 0 16px 28px rgba(67, 97, 238, 0.25);
+  box-shadow: 0 16px 28px rgba(80, 70, 229, 0.28);
 }
 
 .btn-accent {
@@ -541,7 +542,7 @@ button.btn-secondary:hover {
 }
 
 .calc-hero {
-  background: linear-gradient(135deg, rgba(67, 97, 238, 0.12), rgba(72, 149, 239, 0.08));
+  background: linear-gradient(135deg, rgba(80, 70, 229, 0.12), rgba(6, 182, 212, 0.07));
   border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: calc(var(--border-radius) - 4px);
   padding: clamp(1.5rem, 3vw, 2rem);
@@ -556,7 +557,7 @@ button.btn-secondary:hover {
   position: absolute;
   inset: 0;
   background: radial-gradient(circle at 18% 20%, rgba(148, 163, 184, 0.16), transparent 35%),
-    radial-gradient(circle at 82% 15%, rgba(72, 149, 239, 0.12), transparent 32%),
+    radial-gradient(circle at 82% 15%, rgba(6, 182, 212, 0.12), transparent 32%),
     radial-gradient(circle at 70% 80%, rgba(76, 201, 240, 0.12), transparent 42%);
   pointer-events: none;
 }
@@ -585,7 +586,7 @@ button.btn-secondary:hover {
 
   .calculator-shell .instructions {
     height: 100%;
-    background: linear-gradient(160deg, rgba(148, 163, 184, 0.16), rgba(67, 97, 238, 0.08));
+    background: linear-gradient(160deg, rgba(148, 163, 184, 0.16), rgba(80, 70, 229, 0.08));
     border: 1px solid rgba(148, 163, 184, 0.2);
     box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
   }
@@ -616,7 +617,7 @@ button.btn-secondary:hover {
   gap: 0.35rem;
   padding: 0.45rem 0.85rem;
   border-radius: 999px;
-  background: rgba(67, 97, 238, 0.12);
+  background: rgba(80, 70, 229, 0.12);
   color: var(--primary);
   font-weight: 700;
   letter-spacing: 0.03em;
@@ -700,7 +701,7 @@ button.btn-secondary:hover {
   margin: 0;
   font-size: 1.2rem;
   color: var(--secondary);
-  border-bottom: 2px solid rgba(67, 97, 238, 0.25);
+  border-bottom: 2px solid rgba(80, 70, 229, 0.25);
   padding-bottom: 0.65rem;
 }
 
@@ -739,7 +740,7 @@ button.btn-secondary:hover {
 .input-field textarea:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.25);
+  box-shadow: 0 0 0 3px rgba(80, 70, 229, 0.25);
 }
 
 .input-field input.error {
@@ -764,7 +765,7 @@ button.btn-secondary:hover {
 
 .results,
 .results-panel {
-  background: rgba(67, 97, 238, 0.08);
+  background: rgba(80, 70, 229, 0.08);
   border-left: 4px solid var(--primary);
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-radius: var(--soft-radius);
@@ -805,10 +806,11 @@ button.btn-secondary:hover {
 }
 
 .result-value {
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-size: 1.7rem;
+  font-weight: 800;
   color: var(--primary);
   margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
 }
 
 .result-label {
@@ -818,7 +820,7 @@ button.btn-secondary:hover {
 
 .formula,
 .formula-callout {
-  background: rgba(67, 97, 238, 0.12);
+  background: rgba(80, 70, 229, 0.12);
   border-left: 3px solid var(--accent);
   padding: 1rem 1.2rem;
   border-radius: var(--soft-radius);
@@ -844,7 +846,7 @@ button.btn-secondary:hover {
   font-size: 1.1rem;
   letter-spacing: 0.08em;
   color: var(--secondary);
-  background: rgba(67, 97, 238, 0.08);
+  background: rgba(80, 70, 229, 0.08);
   padding: 0.85rem 1.1rem;
   border-radius: var(--soft-radius);
 }
@@ -867,7 +869,7 @@ button.btn-secondary:hover {
 }
 
 .steps {
-  background: rgba(67, 97, 238, 0.08);
+  background: rgba(80, 70, 229, 0.08);
   padding: 1.25rem 1.4rem;
   border-radius: var(--soft-radius);
   display: grid;
@@ -962,12 +964,12 @@ button.btn-secondary:hover {
 #coulombForm input:focus {
   border-color: var(--primary);
   outline: none;
-  box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+  box-shadow: 0 0 0 3px rgba(80, 70, 229, 0.2);
 }
 
 .result,
 .result-value-block {
-  background: rgba(67, 97, 238, 0.08);
+  background: rgba(80, 70, 229, 0.08);
   border-left: 4px solid var(--primary);
   padding: 1rem 1.1rem;
   border-radius: var(--soft-radius);
@@ -1069,9 +1071,9 @@ button.btn-secondary:hover {
 }
 
 .result {
-  background: rgba(67, 97, 238, 0.08);
+  background: rgba(80, 70, 229, 0.08);
   border-radius: var(--soft-radius);
-  border: 1px solid rgba(67, 97, 238, 0.22);
+  border: 1px solid rgba(80, 70, 229, 0.22);
   padding: 1rem 1.25rem;
   font-weight: 700;
   color: var(--secondary);
@@ -1116,7 +1118,7 @@ table tbody tr:nth-child(even) {
 footer.site-footer,
 body > footer:not(.site-footer) {
   margin-top: clamp(3rem, 5vw, 4.5rem);
-  background: rgba(15, 23, 42, 0.95);
+  background: linear-gradient(135deg, #1e1b4b 0%, #0f0f1f 100%);
   color: rgba(255, 255, 255, 0.82);
   text-align: center;
   padding: 1.5rem;
@@ -1137,10 +1139,10 @@ body.theme-home {
   --primary: #4361ee;
   --secondary: #312e81;
   --accent: #4cc9f0;
-  --page-pattern: linear-gradient(90deg, rgba(67, 97, 238, 0.06) 1px, transparent 1px),
-    linear-gradient(rgba(67, 97, 238, 0.06) 1px, transparent 1px);
+  --page-pattern: linear-gradient(90deg, rgba(80, 70, 229, 0.06) 1px, transparent 1px),
+    linear-gradient(rgba(80, 70, 229, 0.06) 1px, transparent 1px);
   --page-pattern-size: 60px 60px;
-  --hero-gradient: linear-gradient(135deg, rgba(19, 35, 87, 0.95), rgba(67, 97, 238, 0.92));
+  --hero-gradient: linear-gradient(135deg, rgba(19, 35, 87, 0.95), rgba(80, 70, 229, 0.92));
 }
 
 body.theme-architecture {
