@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../assets/css/style.css">
@@ -10,30 +11,35 @@
   </head>
 <body class="theme-fluid">
 
-  <header>
-    <h1>Barrera Calculators</h1>
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Fluid Mechanics Toolkit for <span>Architecture &amp; Engineering</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
-  </ul>
-</nav>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+      <li><a class="site-nav__link" href="../../innovation-design/index.html">Science of Innovation &amp; Design</a></li>
+      <li><a class="site-nav__link is-active" href="../index.html">Science of Architecture &amp; Engineering</a></li>
+      <li><a class="site-nav__link" href="../../auto-sys-prgm/index.html">Engineering &amp; Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Science of Architecture & Engineering</a> &gt; 
-    <a href="index.html">Fluid Mechanics</a> &gt;
-    Lift & Drag Calculator
-  </div>
-
+<main>
+  <section class="section">
   <div class="container">
-    <header>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt;
+      <a href="../index.html">Science of Architecture &amp; Engineering</a> &gt;
+      <a href="index.html">Fluid Mechanics</a> &gt;
+      Lift &amp; Drag Calculator
+    </div>
+
+  <div class="calculator-shell">
+    <header class="module-header">
       <h1>Lift and Drag Force Calculator</h1>
       <p class="subtitle">Calculate aerodynamic forces based on input parameters</p>
     </header>
@@ -127,6 +133,13 @@
       <div class="results" id="results"></div>
     </div>
   </div>
+  </div>
+  </section>
+</main>
+
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Fluid Mechanics Studio</p>
+  </footer>
 
   <script>
     // Add event listeners for Enter key

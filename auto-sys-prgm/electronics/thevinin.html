@@ -11,30 +11,35 @@
   </head>
 <body class="theme-electronics">
 
-  <header>
-    <h1>Barrera Calculators</h1>
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Circuit Intelligence for <span>Automation Teams</span></p>
+    </div>
   </header>
 
-<nav>
-  <ul>
-    <li><a href="../../index.html">Home</a></li>
-    <li><a href="../../innovation-design/index.html">Science of Innovation & Design</a></li>
-    <li><a href="../../architecture-engineering/index.html">Science of Architecture & Engineering</a></li>
-    <li><a href="../../auto-sys-prgm/index.html">Engineering & Auto Systems Programming</a></li>
-    <li><a href="../../misc./index.html">Misc.</a></li>
-  </ul>
-</nav>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link" href="../../index.html">Home</a></li>
+      <li><a class="site-nav__link" href="../../innovation-design/index.html">Science of Innovation &amp; Design</a></li>
+      <li><a class="site-nav__link" href="../../architecture-engineering/index.html">Science of Architecture &amp; Engineering</a></li>
+      <li><a class="site-nav__link is-active" href="../index.html">Engineering &amp; Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="../../misc./index.html">Misc.</a></li>
+    </ul>
+  </nav>
 
-<div class="containerb">
-  <div class="breadcrumb">
-    <a href="../../index.html">Home</a> &gt; 
-    <a href="../index.html">Engineering & Auto Systems Programming</a> &gt; 
-    <a href="index.html">Electronics</a> &gt;
-    Thevenin Calculator
-  </div>
-
+<main>
+  <section class="section">
   <div class="container">
-    <header>
+    <div class="breadcrumb">
+      <a href="../../index.html">Home</a> &gt;
+      <a href="../index.html">Engineering &amp; Auto Systems Programming</a> &gt;
+      <a href="index.html">Electronics</a> &gt;
+      Thevenin Calculator
+    </div>
+
+  <div class="calculator-shell">
+    <header class="module-header">
       <h1>Thevenin Equivalent Calculator</h1>
       <p class="subtitle">Calculate Vth and Rth with step-by-step solutions</p>
     </header>
@@ -86,9 +91,12 @@
       <div class="steps" id="steps"></div>
     </div>
   </div>
-  
-  <footer>
-    <p>© Barrera Calculators</p>
+  </div>
+  </section>
+</main>
+
+  <footer class="site-footer">
+    <p>© Barrera Calculators — Electronics Workspace</p>
   </footer>
 
   <script>
