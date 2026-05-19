@@ -3,530 +3,177 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Barrera Calculators</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
-  <title>Barrera Calculators</title>
-  <style>
-    :root {
-      --primary: #5046e5;
-      --secondary: #312e81;
-      --accent: #06b6d4;
-      --light: #f8f9fa;
-      --dark: #212529;
-      --success: #4cc9f0;
-      --error: #f72585;
-      --border-radius: 12px;
-      --box-shadow: 0 8px 24px rgba(80, 70, 229, 0.12);
-      --transition: all 0.3s ease;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.6;
-      color: var(--dark);
-      background-color: #f5f7ff;
-      background-image:
-        linear-gradient(90deg, rgba(80, 70, 229, 0.06) 1px, transparent 1px),
-        linear-gradient(rgba(80, 70, 229, 0.06) 1px, transparent 1px);
-      background-size: 60px 60px;
-      background-attachment: fixed;
-      margin: 0;
-    }
-
-    h1, h2, h3 {
-      font-family: 'Rajdhani', 'Inter', sans-serif;
-      letter-spacing: 0.04em;
-    }
-
-    header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-      box-shadow: 0 4px 16px rgba(80, 70, 229, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 100%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-      transform: rotate(30deg);
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2.6rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      position: relative;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    nav {
-      background-color: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 4px 20px rgba(80, 70, 229, 0.12);
-      backdrop-filter: blur(12px);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      list-style: none;
-      padding: 1rem 1.5rem;
-      margin: 0;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: var(--dark);
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 0.65rem 1.4rem;
-      border-radius: 999px;
-      border: 1px solid rgba(80, 70, 229, 0.2);
-      transition: var(--transition);
-      font-size: 0.85rem;
-    }
-
-    nav a:hover, nav a.active {
-      color: white;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      box-shadow: 0 6px 16px rgba(80, 70, 229, 0.3);
-      transform: translateY(-2px);
-    }
-
-    a:focus-visible,
-    button:focus-visible,
-    .btn:focus-visible {
-      outline: 3px solid rgba(80, 70, 229, 0.35);
-      outline-offset: 3px;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-    }
-
-    .hero {
-      background:
-        radial-gradient(circle at 10% 20%, rgba(6, 182, 212, 0.28), transparent 48%),
-        radial-gradient(circle at 85% 75%, rgba(80, 70, 229, 0.2), transparent 42%),
-        linear-gradient(135deg, #1e1b4b 0%, #5046e5 58%, #06b6d4 100%);
-      color: white;
-      padding: 5rem 1.5rem;
-      text-align: center;
-      border-radius: 24px;
-      margin-bottom: 3.5rem;
-      box-shadow: 0 30px 60px rgba(80, 70, 229, 0.28);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 40px;
-      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="%23f5f7ff" opacity=".18"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" fill="%23f5f7ff" opacity=".35"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%23f5f7ff"/></svg>');
-      background-size: cover;
-    }
-
-    .hero h2 {
-      font-size: 3rem;
-      margin-bottom: 1.1rem;
-      position: relative;
-      z-index: 1;
-      font-weight: 700;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      opacity: 0.95;
-      max-width: 720px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-      font-weight: 400;
-    }
-
-    .category-intro {
-      max-width: 800px;
-      margin: 0 auto 3rem;
-      text-align: center;
-      padding: 2rem;
-      background: white;
-      border-radius: 18px;
-      box-shadow: 0 20px 45px rgba(80, 70, 229, 0.1);
-      border: 1px solid rgba(80, 70, 229, 0.1);
-      border-top: 3px solid var(--primary);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .category-intro::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(80, 70, 229, 0.07), transparent 55%);
-      pointer-events: none;
-    }
-
-    .category-intro p {
-      margin: 0;
-      color: #4a4f60;
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-
-    .engineering-highlights {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-    }
-
-    .highlight-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(245,245,255,0.92));
-      border-radius: 18px;
-      padding: 1.8rem;
-      border: 1px solid rgba(80, 70, 229, 0.1);
-      border-top: 3px solid var(--primary);
-      box-shadow: 0 18px 35px rgba(80, 70, 229, 0.08);
-      position: relative;
-      overflow: hidden;
-      transition: var(--transition);
-    }
-
-    .highlight-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 45px rgba(80, 70, 229, 0.16);
-    }
-
-    .highlight-icon {
-      width: 54px;
-      height: 54px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: rgba(76, 201, 240, 0.18);
-      border: 1px solid rgba(72, 149, 239, 0.2);
-      margin-bottom: 1rem;
-    }
-
-    .highlight-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: #1e2749;
-    }
-
-    .highlight-card p {
-      color: #50566f;
-      font-size: 0.98rem;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .category-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.99), rgba(245,244,255,0.94));
-      border-radius: 20px;
-      box-shadow: 0 20px 35px rgba(80, 70, 229, 0.12);
-      overflow: hidden;
-      transition: var(--transition);
-      position: relative;
-      border: 1px solid rgba(80, 70, 229, 0.1);
-    }
-
-    .category-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      border-radius: inherit;
-      background: linear-gradient(135deg, rgba(80, 70, 229, 0.1), transparent 60%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .category-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 28px 50px rgba(80, 70, 229, 0.2);
-    }
-
-    .category-card:hover::before {
-      opacity: 1;
-    }
-
-    .category-header {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .category-content {
-      padding: 1.8rem;
-      position: relative;
-    }
-
-    .calculator-list {
-      list-style: none;
-    }
-
-    .calculator-list li {
-      margin-bottom: 0.75rem;
-      padding: 0.75rem 0.5rem;
-      border-bottom: 1px solid rgba(33, 37, 41, 0.06);
-      position: relative;
-    }
-
-    .calculator-list li:last-child {
-      border-bottom: none;
-    }
-
-    .calculator-list a {
-      color: #1f2a44;
-      text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: var(--transition);
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    .calculator-list a:hover {
-      color: var(--primary);
-      padding-left: 0.35rem;
-    }
-
-    .calculator-list a::after {
-      content: '→';
-      font-size: 0.95rem;
-      transition: transform 0.3s ease;
-      opacity: 0.6;
-    }
-
-    .calculator-list a:hover::after {
-      transform: translateX(4px);
-      opacity: 1;
-    }
-
-    footer {
-      background: linear-gradient(135deg, #1e1b4b 0%, #0f0f1f 100%);
-      color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      margin-top: 3rem;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    footer p {
-      opacity: 0.85;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      font-size: 0.85rem;
-    }
-
-    @media (max-width: 768px) {
-      .hero {
-        padding: 3.5rem 1.2rem;
-      }
-
-      .hero h2 {
-        font-size: 2.4rem;
-      }
-
-      nav ul {
-        flex-direction: column;
-        align-items: center;
-      }
-
-      nav a {
-        width: 100%;
-        text-align: center;
-      }
-    }
-  </style>
 </head>
-<body>
-  <header>
-    <h1>Barrera Calculators</h1>
+<body class="theme-home">
+  <header class="site-header">
+    <div class="container">
+      <p class="site-header__brand">Barrera Calculators</p>
+      <p class="site-header__tagline">Engineering Calculation <span>Hub</span></p>
+    </div>
   </header>
 
-  <nav>
-    <ul>
-      <li><a href="index.html" class="active">Home</a></li>
-      <li><a href="innovation-design/index.html">Science of Innovation &amp; Design</a></li>
-      <li><a href="architecture-engineering/index.html">Science of Architecture &amp; Engineering</a></li>
-      <li><a href="auto-sys-prgm/index.html">Engineering &amp; Auto Systems Programming</a></li>
-      <li><a href="misc./index.html">Misc.</a></li>
+  <nav class="site-nav">
+    <ul class="site-nav__list">
+      <li><a class="site-nav__link is-active" href="index.html">Home</a></li>
+      <li><a class="site-nav__link" href="innovation-design/index.html">Science of Innovation &amp; Design</a></li>
+      <li><a class="site-nav__link" href="architecture-engineering/index.html">Science of Architecture &amp; Engineering</a></li>
+      <li><a class="site-nav__link" href="auto-sys-prgm/index.html">Engineering &amp; Auto Systems Programming</a></li>
+      <li><a class="site-nav__link" href="misc./index.html">Misc.</a></li>
     </ul>
   </nav>
 
-  <div class="container">
-    <section class="hero">
-      <h2>Engineering Calculation Hub</h2>
-      <p>Precision-built calculators that translate classroom theory into lab-ready numbers.</p>
-    </section>
+  <main>
+    <div class="container">
+      <section class="hero">
+        <div class="hero__content">
+          <span class="hero__eyebrow">La Salle Engineering</span>
+          <h1 class="hero__headline">Engineering Calculation Hub</h1>
+          <p class="hero__lede">Precision-built calculators that translate classroom theory into lab-ready numbers.</p>
+          <div class="hero__tags">
+            <span class="data-chip">Circuits</span>
+            <span class="data-chip">Fluid Mechanics</span>
+            <span class="data-chip">Solid Mechanics</span>
+            <span class="data-chip">Unit Conversion</span>
+          </div>
+        </div>
+      </section>
 
-    <div class="category-intro">
-      <h2>Welcome to Barrera Calculators</h2>
-      <p>Interactive tools for science and engineering calculations</p>
-      <p>If you're in a class that Mr. Barrera teaches, you can find calculators for the equations he teaches. If you can't find what you need, contact me with the equation name and the equation itself.</p>
+      <section class="section">
+        <div class="section-intro">
+          <p>If you're in a class that Mr. Barrera teaches, you can find calculators for the equations he teaches. If you can't find what you need, contact me with the equation name and the equation itself.</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3L14.1 8H19L15.2 10.5L17.3 15.5L12 12.5L6.7 15.5L8.8 10.5L5 8H9.9L12 3Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Precision Ready</h3>
+            <p>Each calculator is tuned for engineering accuracy with clear unit guidance and step-by-step solutions.</p>
+          </article>
+
+          <article class="card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M7 9H17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M7 13H13" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Data Driven</h3>
+            <p>Track inputs, outputs, and assumptions like a project engineer with structured, labeled layouts.</p>
+          </article>
+
+          <article class="card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M12 5V2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M12 22V19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M5 12H2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M22 12H19" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Lab Ready</h3>
+            <p>Bring the calculators to lab sessions and studio critiques — fully responsive on any device.</p>
+          </article>
+        </div>
+
+        <div class="section-title" style="margin-top:3rem;">
+          <h2>Calculator Categories</h2>
+          <p>Choose a discipline to explore the available tools</p>
+        </div>
+
+        <div class="card-grid">
+          <article class="category-card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 3L20 7V17L12 21L4 17V7L12 3Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M12 12L20 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M12 12L4 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Science of Innovation &amp; Design</h3>
+            <p>Fluid mechanics, mechatronics, and solid mechanics tools for design-focused engineering workflows.</p>
+            <div class="card-meta">
+              <span>Fluid</span>
+              <span>Mechatronics</span>
+              <span>Solid</span>
+            </div>
+            <a class="btn btn-primary category-card__cta" href="innovation-design/index.html">Explore Tools</a>
+          </article>
+
+          <article class="category-card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M4 9H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9 9V20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Science of Architecture &amp; Engineering</h3>
+            <p>Structural, fluid, and building systems calculators for architects and civil engineers.</p>
+            <div class="card-meta">
+              <span>Structural</span>
+              <span>Fluid</span>
+              <span>Materials</span>
+            </div>
+            <a class="btn btn-primary category-card__cta" href="architecture-engineering/index.html">Explore Tools</a>
+          </article>
+
+          <article class="category-card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 7H18V17H6V7Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M9 10H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9 14H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M6 10H4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M20 10H18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Engineering &amp; Auto Systems Programming</h3>
+            <p>Circuit, firmware, and diagnostic tools for labs, competition teams, and production test bays.</p>
+            <div class="card-meta">
+              <span>Electronics</span>
+              <span>Circuits</span>
+              <span>Automation</span>
+            </div>
+            <a class="btn btn-primary category-card__cta" href="auto-sys-prgm/index.html">Explore Tools</a>
+          </article>
+
+          <article class="category-card">
+            <div class="category-card__icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 7H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M6 5V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M18 5V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M6 11H18V19H6V11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M10 14H14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="category-card__title">Miscellaneous</h3>
+            <p>Unit converters and general-purpose tools that support every discipline in the lab.</p>
+            <div class="card-meta">
+              <span>Units</span>
+              <span>Conversion</span>
+              <span>Utility</span>
+            </div>
+            <a class="btn btn-primary category-card__cta" href="misc./index.html">Explore Tools</a>
+          </article>
+        </div>
+      </section>
     </div>
+  </main>
 
-    <section class="engineering-highlights">
-      <article class="highlight-card">
-        <div class="highlight-icon" style="background: rgba(80, 70, 229, 0.14); border-color: rgba(80, 70, 229, 0.22);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 3L14.1 8H19L15.2 10.5L17.3 15.5L12 12.5L6.7 15.5L8.8 10.5L5 8H9.9L12 3Z" fill="#5046e5" opacity="0.9"/>
-          </svg>
-        </div>
-        <h3>Precision Ready</h3>
-        <p>Each calculator is tuned for engineering accuracy with clear unit guidance and modern visuals.</p>
-      </article>
-      <article class="highlight-card">
-        <div class="highlight-icon" style="background: rgba(6, 182, 212, 0.14); border-color: rgba(6, 182, 212, 0.22);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="14" rx="2" stroke="#06b6d4" stroke-width="1.6"/>
-            <path d="M7 9H17" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M7 13H13" stroke="#06b6d4" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Data Driven</h3>
-        <p>Track inputs, outputs, and assumptions like a project engineer with structured layouts.</p>
-      </article>
-      <article class="highlight-card">
-        <div class="highlight-icon" style="background: rgba(49, 46, 129, 0.12); border-color: rgba(80, 70, 229, 0.2);">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="12" cy="12" r="7" stroke="#5046e5" stroke-width="1.6"/>
-            <path d="M12 5V2" stroke="#5046e5" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M12 22V19" stroke="#5046e5" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M5 12H2" stroke="#5046e5" stroke-width="1.6" stroke-linecap="round"/>
-            <path d="M22 12H19" stroke="#5046e5" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Lab Ready</h3>
-        <p>Bring the calculators directly to lab sessions and studio critiques with responsive design.</p>
-      </article>
-    </section>
-
-    <div class="category-grid">
-      <!-- Science of Innovation & Design -->
-      <div class="category-card">
-        <div class="category-header" style="background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 3L20 7V17L12 21L4 17V7L12 3Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M12 12L20 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M12 12L4 7" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <h3>Science of Innovation &amp; Design</h3>
-        </div>
-        <div class="category-content">
-          <ul class="calculator-list">
-            <li><a href="innovation-design/fluid-mechanics/index.html">Fluid Mechanics</a></li>
-            <li><a href="innovation-design/mechatronics/index.html">Mechatronics</a></li>
-            <li><a href="innovation-design/solid-mechanics/index.html">Solid Mechanics</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Science of Architecture & Engineering -->
-      <div class="category-card">
-        <div class="category-header" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="4" y="4" width="16" height="16" rx="2" stroke="white" stroke-width="1.5"/>
-            <path d="M4 9H20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 9V20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <h3>Science of Architecture &amp; Engineering</h3>
-        </div>
-        <div class="category-content">
-          <ul class="calculator-list">
-            <li><a href="architecture-engineering/fluid-mechanics/index.html">Fluid Mechanics</a></li>
-            <li><a href="architecture-engineering/solid-mechanics/index.html">Solid Mechanics</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Engineering & Auto Systems Programming -->
-      <div class="category-card">
-        <div class="category-header" style="background: linear-gradient(135deg, #0d9488 0%, #5046e5 100%)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M6 7H18V17H6V7Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M9 10H15" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M9 14H12" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M6 10H4" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M20 10H18" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <h3>Engineering &amp; Auto Systems Programming</h3>
-        </div>
-        <div class="category-content">
-          <ul class="calculator-list">
-            <li><a href="auto-sys-prgm/electronics/index.html">Electronics</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Miscellaneous -->
-      <div class="category-card">
-        <div class="category-header" style="background: linear-gradient(135deg, #1e293b 0%, #5046e5 100%)">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M4 7H20" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M6 5V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M18 5V9" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M6 11H18V19H6V11Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M10 14H14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <h3>Miscellaneous</h3>
-        </div>
-        <div class="category-content">
-          <ul class="calculator-list">
-            <li><a href="misc./units/index.html">Units</a></li>
-            <li><a href="misc./misc./index.html">Misc.</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <footer>
+  <footer class="site-footer">
     <p>Designed for the future engineers of La Salle</p>
   </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Any initialization code
-    });
-  </script>
 </body>
 </html>
